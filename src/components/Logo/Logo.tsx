@@ -4,8 +4,10 @@ import { LogoIcon } from '../svg';
 export const Logo = () => {
   return (
     <div className={styles.container}>
-      <span className={styles.iconContainer}>👌</span>
-      <LogoIcon />
+      <div className={styles.container__logoWrapper}>
+        <span className={styles.container__logoWrapper__iconContainer}>👌</span>
+        <LogoIcon />
+      </div>
     </div>
   );
 };

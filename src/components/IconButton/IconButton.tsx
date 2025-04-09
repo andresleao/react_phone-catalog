@@ -5,16 +5,22 @@ import { ReactNode } from 'react';
 type IconButtonProps = {
   icon: ReactNode;
   useBorder?: boolean;
+  borderColor?: string;
 };
 
-export const IconButton = ({ icon, useBorder = false }: IconButtonProps) => {
+export const IconButton = ({
+  icon,
+  useBorder = false,
+  borderColor,
+}: IconButtonProps) => {
   return (
-    <div
+    <button
       className={cn(styles.container, {
         [styles.container__border]: useBorder,
       })}
+      style={useBorder && borderColor ? { borderColor } : undefined}
     >
       {icon}
-    </div>
+    </button>
   );
 };
