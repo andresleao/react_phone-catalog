@@ -6,7 +6,7 @@ import { FiChevronUp } from 'react-icons/fi';
 export const Footer = () => (
   <footer className={styles.container}>
     <div className={styles.container__content}>
-      <div className={styles.container__content__item}>
+      <div className={styles.container__content__logo}>
         <Logo />
       </div>
       <div className={styles.container__content__links}>
@@ -20,6 +20,8 @@ export const Footer = () => (
           icon={<FiChevronUp size={24} />}
           useBorder={true}
           borderColor={'#B4BDC3'}
+          height={'32px'}
+          width={'32px'}
         />
       </div>
     </div>

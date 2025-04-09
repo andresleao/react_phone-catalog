@@ -1,3 +1,14 @@
+@use 'src/styles/mixins' as *;
+
 .container {
-  margin: 56px 152px 152px 80px;
+  width: 100%;
+  padding: 56px 152px 152px 80px;
+
+  @include tablet {
+    padding: 56px 32px 32px 80px;
+  }
+
+  @include mobile {
+    padding: 56px 0 0 16px;
+  }
 }
