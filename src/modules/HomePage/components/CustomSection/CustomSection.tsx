@@ -1,15 +1,17 @@
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { IconButton } from '../../../../components/IconButton';
 import { ProductCard } from '../../../../components/ProductCard';
-import styles from './NewModels.module.scss';
+import styles from './CustomSection.module.scss';
 
-export const NewModels = () => {
+type CustomSectionProps = {
+  title: string;
+};
+
+export const CustomSection = ({ title }: CustomSectionProps) => {
   return (
     <section className={styles.container}>
       <div className={styles.container__header}>
-        <span className={styles.container__header__title}>
-          Brand new models
-        </span>
+        <span className={styles.container__header__title}>{title}</span>
         <div className={styles.container__header__buttons}>
           <IconButton
             icon={<FiChevronLeft size={24} color={'#E2E6E9'} />}
@@ -27,7 +29,11 @@ export const NewModels = () => {
         </div>
       </div>
 
-      <ProductCard />
+      <div className={styles.container__list}>
+        {[...Array(4)].map((_, index) => (
+          <ProductCard key={index} />
+        ))}
+      </div>
     </section>
   );
 };

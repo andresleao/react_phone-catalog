@@ -1,0 +1,34 @@
+.container {
+  height: 27.69rem;
+  width: 23rem;
+
+  &__photo {
+    width: 23rem;
+    height: 23rem;
+    overflow: hidden;
+    background-color: bisque;
+    margin-bottom: 1.5rem;
+
+    img {
+      width: 24.12rem;
+      height: 28.56rem;
+      object-fit: contain;
+      transform: translateX(50px);
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    &__amount {
+      font-size: 0.88;
+      color: #89939A;
+    }
+  }
+}
