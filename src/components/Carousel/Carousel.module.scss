@@ -1,28 +1,37 @@
 @use 'src/styles/mixins' as *;
 
 .container {
-  justify-content: center;
+  width: 100%;
   margin-top: 3.5rem;
   display: flex;
   gap: 1rem;
+  justify-content: center;
+
 
   &__button {
     max-height: 400px;
+    min-width: 32px;
+    flex-shrink: 1;
+    width: auto;
   }
 
   img {
     max-height: 400px;
     height: auto;
     object-fit: contain;
-  }
-
-  @include tablet {
-    img {
-      max-height: 190px;
-    }
+    max-width: calc(100% - 96px);
   }
 
   @include mobile {
-    flex-direction: column;
+    img {
+      max-width: 100vh;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    &__button {
+      display: none;
+    }
   }
 }

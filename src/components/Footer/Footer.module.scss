@@ -11,12 +11,13 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
+    gap: 24px;
 
     &__logo {
       flex: 1;
     }
 
-    &__item {
+    &__button {
       display: flex;
       gap: 16px;
       align-items: center;
@@ -36,6 +37,7 @@
     &__links {
       display: flex;
       flex: 1;
+      gap: 32px;
       justify-content: space-between;
 
       span {
@@ -46,18 +48,17 @@
     }
   }
 
-  @include mobile {
+  @include small-tablet {
     padding: 0 16px;
 
     &__content {
       flex-direction: column;
       align-items: flex-start;
-      gap: 16px;
+      gap: 24px;
       margin: 34px 0 32px;
 
-      &__item {
-        flex: initial;
-        justify-content: flex-start;
+      &__button {
+        display: flex;
 
         &:last-child {
           margin-top: 32px;

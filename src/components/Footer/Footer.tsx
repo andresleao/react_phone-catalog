@@ -14,7 +14,7 @@ export const Footer = () => (
         <span>CONTACTS</span>
         <span>RIGHTS</span>
       </div>
-      <div className={styles.container__content__item}>
+      <div className={styles.container__content__button}>
         <span>Back to top</span>
         <IconButton
           icon={<FiChevronUp size={24} />}

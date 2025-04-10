@@ -54,13 +54,7 @@
     }
   }
 
-  @include tablet {
-    &__content__menu {
-      gap: 32px;
-    }
-  }
-
-  @include mobile {
+  @include small-tablet {
     &__content__menu {
       display: none;
     }
