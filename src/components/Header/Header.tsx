@@ -28,6 +28,7 @@ export const Header = () => {
           <IconButton
             icon={<FiHeart size={24} />}
             useBorder={true}
+            borderColor={'#E2E6E9'}
             height={'64px'}
             width={'64px'}
           />

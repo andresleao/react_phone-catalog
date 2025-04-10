@@ -8,6 +8,7 @@ type IconButtonProps = {
   borderColor?: string;
   height?: string;
   width?: string;
+  isActive?: boolean;
 };
 
 export const IconButton = ({
@@ -16,11 +17,13 @@ export const IconButton = ({
   borderColor,
   height,
   width,
+  isActive = true,
 }: IconButtonProps) => {
   return (
     <button
       className={cn(styles.container, {
         [styles.container__border]: useBorder,
+        [styles['container__border--active']]: useBorder && isActive,
       })}
       style={{
         ...(useBorder && borderColor ? { borderColor } : {}),
