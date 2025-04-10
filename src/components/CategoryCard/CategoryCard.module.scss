@@ -6,12 +6,11 @@
     width: 23rem;
     height: 23rem;
     overflow: hidden;
-    background-color: bisque;
     margin-bottom: 1.5rem;
 
     img {
-      width: 24.12rem;
-      height: 28.56rem;
+      max-width: 24.12rem;
+      max-height: 28.56rem;
       object-fit: contain;
       transform: translateX(50px);
     }

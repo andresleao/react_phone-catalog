@@ -1,17 +1,45 @@
 import styles from './CategoryCard.module.scss';
 
-export const CategoryCard = () => {
+type CategoryCardProps = {
+  imgUrl: string;
+  title: string;
+  description: string;
+  backgroundColor?: string;
+  imgHeight?: string;
+  imgWidth?: string;
+  imgTransform?: string;
+};
+
+export const CategoryCard = ({
+  imgUrl,
+  title,
+  description,
+  backgroundColor,
+  imgWidth,
+  imgHeight,
+  imgTransform,
+}: CategoryCardProps) => {
   return (
     <div className={styles.container}>
-      <div className={styles.container__photo}>
+      <div
+        className={styles.container__photo}
+        style={{
+          ...(backgroundColor != null && { backgroundColor }),
+        }}
+      >
         <img
-          src="/public/img/category-phones.png"
-          alt="Phones category photo"
+          src={imgUrl}
+          alt="Category photo"
+          style={{
+            ...(imgWidth != null && { maxWidth: imgWidth }),
+            ...(imgHeight != null && { maxHeight: imgHeight }),
+            ...(imgTransform != null && { transform: imgTransform }),
+          }}
         />
       </div>
       <div className={styles.container__info}>
-        <span className={styles.container__info__title}>Mobile phones</span>
-        <span className={styles.container__info__amount}>95 models</span>
+        <span className={styles.container__info__title}>{title}</span>
+        <span className={styles.container__info__amount}>{description}</span>
       </div>
     </div>
   );
