@@ -7,7 +7,7 @@ export const ProductCard = () => {
   return (
     <div className={styles.container}>
       <img
-        src={'/public/img/phones/apple-iphone-xs-max/gold/00.webp'}
+        src={'/img/phones/apple-iphone-xs-max/gold/00.webp'}
         alt="Product photo"
       />
       <span className={styles.container__name}>

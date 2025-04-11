@@ -27,14 +27,16 @@
   }
 
   @include tablet {
-    &__header {
-      &__buttons {
-        margin-right: 32px;
-      }
-    }
-
     &__list {
       display: inline-flex;
+    }
+  }
+
+  @include mobile {
+    &__header {
+      &__title {
+        font-size: 22px;
+      }
     }
   }
 }

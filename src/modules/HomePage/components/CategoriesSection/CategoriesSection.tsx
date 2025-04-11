@@ -8,20 +8,20 @@ export const CategoriesSection = () => {
       <div className={styles.container__content}>
         <CategoryCard
           backgroundColor={' bisque'}
-          imgUrl="/public/img/category-phones.png"
+          imgUrl="/img/category-phones.png"
           title={'Mobile phones'}
           description={'95 models'}
         />
         <CategoryCard
           backgroundColor={'#89939A'}
-          imgUrl="/public/img/category-tablets.webp"
+          imgUrl="/img/category-tablets.webp"
           title={'Tablets'}
           description={'24 models'}
           imgTransform={'translate(50px, 44px)'}
         />
         <CategoryCard
           backgroundColor={'pink'}
-          imgUrl="/public/img/category-accessories.png"
+          imgUrl="/img/category-accessories.png"
           title={'Accessories'}
           description={'100 models'}
           imgHeight={'44rem'}
