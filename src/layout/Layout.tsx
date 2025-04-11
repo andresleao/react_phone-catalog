@@ -8,9 +8,7 @@ export const Layout = () => {
     <div className={styles.layout}>
       <Header />
       <section className={styles.layout__section}>
-        <div className={styles.layout__section__content}>
-          <Outlet />
-        </div>
+        <Outlet />
       </section>
       <Footer />
     </div>

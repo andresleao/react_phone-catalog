@@ -1,5 +1,8 @@
+@use 'src/styles/mixins' as *;
+
 .container {
-  margin-top: 5rem;
+  max-width: 1140px; // Defina a largura máxima desejada
+  margin: 5rem auto 0; // Centraliza horizontalmente e adiciona margin-top
 
   &__title {
     font-size: 2rem;
@@ -11,5 +14,9 @@
     justify-content: center;
     gap: 1rem;
     margin-top: 1.5rem;
+  }
+
+  @include tablet {
+    padding-right: 80px;
   }
 }

@@ -11,31 +11,10 @@
     gap: 1rem;
     justify-content: center;
 
-    &__button {
-      max-height: 400px;
-      min-width: 32px;
-      flex-shrink: 1;
-      width: auto;
-    }
-
     img {
-      max-height: 400px;
       height: auto;
       object-fit: contain;
-      max-width: calc(100% - 96px);
-    }
-
-    @include mobile {
-      img {
-        max-width: 100vh;
-        height: auto;
-        display: block;
-        object-fit: cover;
-      }
-
-      &__button {
-        display: none;
-      }
+      max-width: calc(100% - 100px);
     }
   }
 
@@ -53,6 +32,25 @@
       &.active {
         background-color: #313237;
       }
+    }
+  }
+
+  @include tablet {
+    img {
+      max-width: calc(100% - 90px);
+    }
+  }
+
+  @include mobile {
+    img {
+      max-width: 100vh;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    &__button {
+      display: none;
     }
   }
 }

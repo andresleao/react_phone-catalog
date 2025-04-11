@@ -1,6 +1,8 @@
+@use 'src/styles/mixins' as *;
+
 .container {
-  margin-top: 5rem;
-  width: 100%;
+  margin: 5rem auto 0;
+  max-width: 1140px;
 
   &__header {
     display: flex;
@@ -22,5 +24,17 @@
     display: flex;
     justify-content: center;
     gap: 1rem;
+  }
+
+  @include tablet {
+    &__header {
+      &__buttons {
+        margin-right: 32px;
+      }
+    }
+
+    &__list {
+      display: inline-flex;
+    }
   }
 }
