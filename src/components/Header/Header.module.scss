@@ -25,20 +25,29 @@
       display: flex;
       gap: 64px;
 
-      &__link_item {
+      &__link__item {
         position: relative;
         cursor: pointer;
         font-size: 12px;
         font-weight: 800;
+        color: #89939A;
 
-        &.active::after {
+        &::after {
           content: '';
           position: absolute;
-          bottom: -14px;
+          bottom: -23px;
           left: 0;
-          width: 100%;
+          width: 0;
           height: 3px;
-          background-color: #000;
+          background-color: #313237;
+          transition: width 0.3s ease;
+        }
+
+        &.active {
+          color: #313237;
+          &::after {
+            width: 100%;
+          }
         }
 
         &:hover {
@@ -68,3 +77,4 @@
     }
   }
 }
+

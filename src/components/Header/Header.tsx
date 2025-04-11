@@ -5,22 +5,29 @@ import { IconButton } from '../IconButton';
 import { NavLink } from 'react-router-dom';
 
 export const Header = () => {
+  const links = [
+    { label: 'HOME', path: '/' },
+    { label: 'PHONES', path: '/phones' },
+    { label: 'TABLETS', path: '/tablets' },
+    { label: 'ACCESSORIES', path: '/accessories' },
+  ];
+
   return (
     <header className={styles.container}>
       <div className={styles.container__content}>
         <Logo />
         <nav className={styles.container__content__menu}>
-          {['HOME', 'PHONES', 'TABLETS', 'ACCESSORIES'].map(item => (
+          {links.map(item => (
             <NavLink
-              key={item}
+              key={item.label}
               className={({ isActive }) =>
-                isActive
-                  ? `${styles.container__content__menu__link_item} active`
-                  : styles.container__content__menu__link_item
+                `${styles.container__content__menu__link__item} ${
+                  isActive ? styles.active : ''
+                }`
               }
-              to="/"
+              to={item.path}
             >
-              {item}
+              {item.label}
             </NavLink>
           ))}
         </nav>

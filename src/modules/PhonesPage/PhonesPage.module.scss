@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1136px;
+  margin: 0 auto;
+
+  &__content {
+    &__history {
+      margin: 25px 0 40px;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__title {
+      font-size: 48px;
+      font-weight: 800;
+    }
+
+    &__list_lenght {
+      color: #89939A;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 40px;
+    }
+
+    &__list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px 1rem;
+    }
+  }
+}
