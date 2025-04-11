@@ -17,14 +17,14 @@ export const CategoriesSection = () => {
           imgUrl="/img/category-tablets.webp"
           title={'Tablets'}
           description={'24 models'}
-          imgTransform={'translate(50px, 44px)'}
+          imgTransform={'translate(50px, 30px)'}
         />
         <CategoryCard
           backgroundColor={'pink'}
           imgUrl="/img/category-accessories.png"
           title={'Accessories'}
           description={'100 models'}
-          imgHeight={'44rem'}
+          imgHeight={'100%'}
           imgWidth={'48rem'}
           imgTransform={'translate(38px, 34px)'}
         />

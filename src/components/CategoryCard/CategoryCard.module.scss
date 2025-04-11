@@ -1,19 +1,21 @@
 .container {
   max-height: 27.69rem;
-  max-width: 100%;
-  width: 100%;
 
   &__photo {
-    width: 23rem;
-    height: 23rem;
+    position: relative;
+    width: 368px;
+    height: 368px;
     overflow: hidden;
     margin-bottom: 1.5rem;
+    aspect-ratio: 1;
 
     img {
+      position: absolute;
+      right: 0;
       max-width: 24.12rem;
       max-height: 28.56rem;
       object-fit: contain;
-      transform: translateX(50px);
+      width: calc(100% - 0.01px);
     }
   }
 

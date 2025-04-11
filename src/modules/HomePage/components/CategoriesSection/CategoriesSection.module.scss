@@ -11,13 +11,8 @@
 
   &__content {
     display: flex;
-    justify-content: center;
     gap: 1rem;
     margin-top: 1.5rem;
-  }
-
-  @include tablet {
-    padding-right: 80px;
   }
 
   @include mobile {
