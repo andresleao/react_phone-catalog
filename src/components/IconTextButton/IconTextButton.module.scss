@@ -1,0 +1,14 @@
+.container {
+  all: unset;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  cursor: pointer;
+  max-width: 66px;
+
+  &__label {
+    color: #89939A;
+    font-size: 12px;
+    font-weight: 700;
+  }
+}

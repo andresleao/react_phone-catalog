@@ -1,0 +1,1 @@
+export { PhoneDetailsPage } from './PhoneDetailsPage';

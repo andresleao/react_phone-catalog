@@ -5,6 +5,13 @@
   height: 31.63rem;
   border: 1px solid #E2E6E9;
   padding: 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+  }
 
   img {
     max-width: 13rem;
