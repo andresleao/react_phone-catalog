@@ -2,13 +2,14 @@ import { FiHeart } from 'react-icons/fi';
 import { IconButton } from '../IconButton';
 import styles from './ProductCard.module.scss';
 import { TextButton } from '../TextButton';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export const ProductCard = () => {
+  const { type } = useParams();
   const navigate = useNavigate();
 
   const handleOnClick = () => {
-    navigate('/phones/1');
+    navigate(`/${type}/1`);
   };
 
   return (

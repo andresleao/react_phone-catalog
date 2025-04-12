@@ -1,9 +1,13 @@
 import { FiChevronLeft } from 'react-icons/fi';
 import { IconTextButton } from '../../components/IconTextButton';
 import { NavHistory } from '../../components/NavHistory';
-import styles from './PhoneDetails.module.scss';
+import styles from './ProductDetails.module.scss';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export const PhoneDetailsPage = () => {
+export const ProductDetailsPage = () => {
+  const navigate = useNavigate();
+  const { type } = useParams();
+
   return (
     <div className={styles.container}>
       <div className={styles.container__nav}>
@@ -11,7 +15,7 @@ export const PhoneDetailsPage = () => {
         <IconTextButton
           label={'Back'}
           icon={<FiChevronLeft size={14} />}
-          onClick={() => {}}
+          onClick={() => navigate(`/${type}`)}
         />
       </div>
       <span className={styles.container__title}>
