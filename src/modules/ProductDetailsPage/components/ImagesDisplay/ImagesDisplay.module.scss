@@ -1,0 +1,29 @@
+.container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 2fr;
+  gap: 16px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 464px;
+    min-width: 464px;
+    aspect-ratio: 1;
+    padding: 11px;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      transform: translate(-40px, -20px);
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { IconButton } from '../../../../components/IconButton';
-import { ProductCard } from '../../../../components/ProductCard';
+import { IconButton } from '../IconButton';
+import { ProductCard } from '../ProductCard';
 import styles from './CustomSection.module.scss';
 
 type CustomSectionProps = {

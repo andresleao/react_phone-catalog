@@ -1,6 +1,6 @@
 import { Carousel } from '../../components/Carousel';
 import { CategoriesSection } from './components/CategoriesSection';
-import { CustomSection } from './components/CustomSection';
+import { CustomSection } from '../../components/CustomSection';
 import styles from './HomePage.module.scss';
 
 export const HomePage = () => {

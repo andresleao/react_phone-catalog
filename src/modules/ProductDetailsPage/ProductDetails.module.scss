@@ -16,4 +16,13 @@
     font-size: 32px;
     font-weight: 800;
   }
+
+  &__product {
+    max-height: 464px;
+    display: grid;
+    margin-top: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+  }
 }
