@@ -1,7 +1,9 @@
+@use 'src/styles/mixins' as *;
+
 .container {
   display: grid;
-  width: 100%;
-  grid-template-columns: 1fr 2fr;
+  height: 464px;
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
 
   &__list {
@@ -11,19 +13,29 @@
   }
 
   &__main {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     max-width: 464px;
     min-width: 464px;
     aspect-ratio: 1;
-    padding: 11px;
 
     img {
       height: 100%;
       width: 100%;
       object-fit: contain;
-      transform: translate(-40px, -20px);
+      transform: translate(-40px, -40px);
+    }
+  }
+
+  @include tablet {
+    grid-template-columns: 1fr 1fr;
+
+    &__main {
+      max-width: 287px;
+      min-width: 287px;
+
+      img {
+        height: 273px;
+        width: 273px;
+      }
     }
   }
 }

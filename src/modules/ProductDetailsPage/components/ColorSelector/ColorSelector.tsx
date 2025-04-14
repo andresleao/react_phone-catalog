@@ -1,9 +1,19 @@
+import { useMediaQuery } from 'react-responsive';
 import styles from './ColorSelector.module.scss';
+import { useParams } from 'react-router-dom';
 
 export const ColorSelector = () => {
+  const { id } = useParams();
+  const isTablet = useMediaQuery({ maxWidth: 1199 });
+
   return (
     <div className={styles.container}>
-      <span>Available colors</span>
+      <div className={styles.container__label}>
+        <span className={styles.container__label__info}>Available colors</span>
+        {isTablet && (
+          <span className={styles.container__label__id}>{`ID: ${id}`}</span>
+        )}
+      </div>
       <div className={styles.container__content}>
         <div className={styles.container__content__wrapper}>
           <div
