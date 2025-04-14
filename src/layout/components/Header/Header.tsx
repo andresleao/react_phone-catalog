@@ -4,9 +4,13 @@ import { FiHeart, FiMenu, FiShoppingBag } from 'react-icons/fi';
 import { IconButton } from '../../../components/IconButton';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { BadgeButton } from '../../../components/BadgeButton';
+import { useLocation } from 'react-router-dom';
 
 export const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isCartPage = location.pathname === '/cart';
 
   const links = [
     { label: 'HOME', path: '/' },
@@ -21,7 +25,6 @@ export const Header = () => {
 
   return (
     <header className={styles.container}>
-      <button onClick={handleNavToCartPage}>OPAAAAA</button>
       <div className={styles.container__content}>
         <Logo />
         <nav className={styles.container__content__menu}>
@@ -41,10 +44,14 @@ export const Header = () => {
         </nav>
 
         <div className={styles.container__content__buttonsArea}>
-          <BadgeButton icon={<FiHeart size={24} />} useBorder />
+          <BadgeButton
+            icon={<FiHeart size={24} />}
+            useBorder
+            onClick={() => {}}
+          />
           <BadgeButton
             icon={<FiShoppingBag size={24} />}
-            isSelected={true}
+            isSelected={isCartPage}
             amount={3}
             onClick={handleNavToCartPage}
           />

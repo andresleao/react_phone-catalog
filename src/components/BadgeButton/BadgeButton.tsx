@@ -13,7 +13,7 @@ type BadgeButtonProps = {
 
 export const BadgeButton = ({
   icon,
-  onClick = () => {},
+  onClick,
   isSelected,
   amount,
   useBorder = false,
@@ -32,7 +32,9 @@ export const BadgeButton = ({
         useBorder={useBorder}
         borderColor={'#E2E6E9'}
       />
-      <div className={styles.container__action} onClick={onClick} />
+      {!!onClick && (
+        <div className={styles.container__action} onClick={onClick} />
+      )}
       {!!amount && (
         <div className={styles.container__badge}>
           <span>{amount}</span>
