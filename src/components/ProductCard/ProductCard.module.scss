@@ -1,8 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 17rem;
-  height: 31.63rem;
+  max-width: 17rem;
+  max-height: 31.63rem;
   border: 1px solid #E2E6E9;
   padding: 2rem;
   cursor: pointer;

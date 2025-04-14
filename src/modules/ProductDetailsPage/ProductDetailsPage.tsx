@@ -4,8 +4,10 @@ import { NavHistory } from '../../components/NavHistory';
 import styles from './ProductDetails.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CustomSection } from '../../components/CustomSection';
-import { LeftArea } from './components/LeftArea';
-import { RightArea } from './components/RightArea';
+import { ImagesDisplay } from './components/ImagesDisplay';
+import { CustomSelectorsArea } from './components/CustomSelectorsArea';
+import { AboutArea } from './components/AboutArea';
+import { TechSpecsArea } from './components/TechSpecsArea';
 
 export const ProductDetailsPage = () => {
   const navigate = useNavigate();
@@ -26,11 +28,18 @@ export const ProductDetailsPage = () => {
       </span>
 
       <div className={styles.container__grid}>
-        <LeftArea />
-        <RightArea />
+        <ImagesDisplay />
+        <CustomSelectorsArea />
       </div>
 
-      <CustomSection title={'You may also like'} />
+      <div className={styles.container__grid__info}>
+        <AboutArea />
+        <TechSpecsArea />
+      </div>
+
+      <div className={styles.container__list}>
+        <CustomSection title={'You may also like'} />
+      </div>
     </div>
   );
 };

@@ -1,1 +1,0 @@
-export { RightArea } from './RightArea';
