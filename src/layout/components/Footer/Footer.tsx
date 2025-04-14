@@ -1,5 +1,5 @@
-import { IconButton } from '../IconButton';
-import { Logo } from '../Logo';
+import { IconButton } from '../../../components/IconButton';
+import { Logo } from '../../../components/Logo';
 import styles from './Footer.module.scss';
 import { FiChevronUp } from 'react-icons/fi';
 

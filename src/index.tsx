@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { HomePage } from './modules/HomePage';
 import { ProductDetailsPage } from './modules/ProductDetailsPage';
 import { ProductsPage } from './modules/ProductsPage';
+import { CartPage } from './modules/CartPage';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <Router>
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
           <Route index element={<ProductsPage />} />
           <Route path=":id" element={<ProductDetailsPage />} />
         </Route>
+        <Route path="/cart" element={<CartPage />} />
       </Route>
     </Routes>
   </Router>,

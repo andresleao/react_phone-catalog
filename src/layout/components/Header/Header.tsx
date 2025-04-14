@@ -1,10 +1,13 @@
 import styles from './Header.module.scss';
-import { Logo } from '../Logo';
+import { Logo } from '../../../components/Logo';
 import { FiHeart, FiMenu, FiShoppingBag } from 'react-icons/fi';
-import { IconButton } from '../IconButton';
-import { NavLink } from 'react-router-dom';
+import { IconButton } from '../../../components/IconButton';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { BadgeButton } from '../../../components/BadgeButton';
 
 export const Header = () => {
+  const navigate = useNavigate();
+
   const links = [
     { label: 'HOME', path: '/' },
     { label: 'PHONES', path: '/phones' },
@@ -12,8 +15,13 @@ export const Header = () => {
     { label: 'ACCESSORIES', path: '/accessories' },
   ];
 
+  const handleNavToCartPage = () => {
+    navigate('/cart');
+  };
+
   return (
     <header className={styles.container}>
+      <button onClick={handleNavToCartPage}>OPAAAAA</button>
       <div className={styles.container__content}>
         <Logo />
         <nav className={styles.container__content__menu}>
@@ -31,18 +39,14 @@ export const Header = () => {
             </NavLink>
           ))}
         </nav>
+
         <div className={styles.container__content__buttonsArea}>
-          <IconButton
-            icon={<FiHeart size={24} />}
-            useBorder={true}
-            borderColor={'#E2E6E9'}
-            height={'64px'}
-            width={'64px'}
-          />
-          <IconButton
+          <BadgeButton icon={<FiHeart size={24} />} useBorder />
+          <BadgeButton
             icon={<FiShoppingBag size={24} />}
-            height={'64px'}
-            width={'64px'}
+            isSelected={true}
+            amount={3}
+            onClick={handleNavToCartPage}
           />
         </div>
 

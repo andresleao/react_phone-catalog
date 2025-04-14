@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 type IconButtonProps = {
   icon: ReactNode;
+  onClick?: () => void;
   useBorder?: boolean;
   borderColor?: string;
   height?: string;
@@ -13,6 +14,7 @@ type IconButtonProps = {
 
 export const IconButton = ({
   icon,
+  onClick = () => {},
   useBorder = false,
   borderColor,
   height,
@@ -21,6 +23,7 @@ export const IconButton = ({
 }: IconButtonProps) => {
   return (
     <button
+      onClick={onClick}
       className={cn(styles.container, {
         [styles.container__border]: useBorder,
         [styles['container__border--active']]: useBorder && isActive,
