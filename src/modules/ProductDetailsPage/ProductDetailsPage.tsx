@@ -5,7 +5,7 @@ import styles from './ProductDetails.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CustomSection } from '../../components/CustomSection';
 import { ImagesDisplay } from './components/ImagesDisplay';
-import { ColorSelector } from './components/ColorSelector';
+import { CustomFeatures } from './components/CustomFeatures/CustomFeatures';
 
 export const ProductDetailsPage = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export const ProductDetailsPage = () => {
       </span>
       <div className={styles.container__product}>
         <ImagesDisplay />
-        <ColorSelector />
+        <CustomFeatures />
       </div>
 
       <CustomSection title={'You may also like'} />

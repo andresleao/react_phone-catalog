@@ -3,6 +3,7 @@ import { IconButton } from '../IconButton';
 import styles from './ProductCard.module.scss';
 import { TextButton } from '../TextButton';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ProductInfoDisplay } from '../ProductInfoDisplay';
 
 export const ProductCard = () => {
   const { type } = useParams();
@@ -26,20 +27,7 @@ export const ProductCard = () => {
         <span className={styles['container__price__item--full']}>$899</span>
       </div>
       <hr className={styles.container__separator} />
-      <div className={styles.container__info}>
-        <div className={styles.container__info__data}>
-          <span className={styles.container__info__data__title}>Screen</span>
-          <span className={styles.container__info__data__value}>5.8” OLED</span>
-        </div>
-        <div className={styles.container__info__data}>
-          <span className={styles.container__info__data__title}>Capacity</span>
-          <span className={styles.container__info__data__value}>64 GB</span>
-        </div>
-        <div className={styles.container__info__data}>
-          <span className={styles.container__info__data__title}>RAM</span>
-          <span className={styles.container__info__data__value}>4 GB</span>
-        </div>
-      </div>
+      <ProductInfoDisplay />
       <div className={styles.container__buttons}>
         <TextButton title={'Add to cart'} />
         <IconButton

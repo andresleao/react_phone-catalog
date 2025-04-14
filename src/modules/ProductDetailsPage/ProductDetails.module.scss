@@ -18,8 +18,8 @@
   }
 
   &__product {
-    max-height: 464px;
     display: grid;
+    max-height: 464px;
     margin-top: 40px;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
