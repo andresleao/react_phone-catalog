@@ -1,28 +1,20 @@
-import styles from './Header.module.scss';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { FiHeart, FiMenu, FiShoppingBag } from 'react-icons/fi';
 import { Logo } from 'components/Logo';
+import styles from './FullScreenMenu.module.scss';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { IconButton } from 'components/IconButton';
+import { FiHeart, FiShoppingBag, FiX } from 'react-icons/fi';
 import { BadgeButton } from 'components/BadgeButton';
-import { useMediaQuery } from 'react-responsive';
-import { ProductsContext } from 'store/ProductsContext';
 import { useContext } from 'react';
+import { ProductsContext } from 'store/ProductsContext';
 
-export const Header = () => {
+export const FullScreenMenu = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const isTablet = useMediaQuery({ maxWidth: 1199 });
 
   const isCartPage = location.pathname === '/cart';
   const isFavouritesPage = location.pathname === '/favourites';
 
   const { setToggleMenu } = useContext(ProductsContext);
-
-  const handleToggleMenu = () => {
-    setToggleMenu(prev => !prev);
-  };
 
   const links = [
     { label: 'HOME', path: '/' },
@@ -31,10 +23,23 @@ export const Header = () => {
     { label: 'ACCESSORIES', path: '/accessories' },
   ];
 
+  const handleToggleMenu = () => {
+    setToggleMenu(prev => !prev);
+  };
+
   return (
-    <header className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.container__content}>
-        <Logo />
+        <div className={styles.container__content__header}>
+          <Logo />
+          <IconButton
+            icon={<FiX size={24} color={'#B4BDC3'} />}
+            width={'48px'}
+            height={'48px'}
+            useBorder
+            onClick={handleToggleMenu}
+          />
+        </div>
         <nav className={styles.container__content__menu}>
           {links.map(item => (
             <NavLink
@@ -50,36 +55,23 @@ export const Header = () => {
             </NavLink>
           ))}
         </nav>
-
-        <div className={styles.container__content__buttonsArea}>
+        <div className={styles.container__content__footer}>
           <BadgeButton
-            icon={<FiHeart size={isTablet ? 16 : 24} />}
+            icon={<FiHeart size={24} color={'#313237'} />}
             useBorder
+            width={'100%'}
             isSelected={isFavouritesPage}
-            height={isTablet ? '48px' : '64px'}
-            width={isTablet ? '48px' : '64px'}
             onClick={() => navigate('/favourites')}
           />
           <BadgeButton
-            icon={<FiShoppingBag size={isTablet ? 16 : 24} />}
+            icon={<FiShoppingBag size={24} color={'#313237'} />}
             isSelected={isCartPage}
-            amount={3}
+            width={'100%'}
+            useBorder
             onClick={() => navigate('/cart')}
-            height={isTablet ? '48px' : '64px'}
-            width={isTablet ? '48px' : '64px'}
-          />
-        </div>
-
-        <div className={styles.container__content__menuToggle}>
-          <IconButton
-            icon={<FiMenu size={isTablet ? 16 : 24} />}
-            useBorder={true}
-            height={isTablet ? '48px' : '64px'}
-            width={isTablet ? '48px' : '64px'}
-            onClick={handleToggleMenu}
           />
         </div>
       </div>
-    </header>
+    </div>
   );
 };

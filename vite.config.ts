@@ -10,7 +10,8 @@ export default defineConfig({
       components: path.resolve(__dirname, 'src/components'),
       layout: path.resolve(__dirname, 'src/layout'),
       modules: path.resolve(__dirname, 'src/modules'),
-      types: path.resolve(__dirname, 'src/types')
+      types: path.resolve(__dirname, 'src/types'),
+      store: path.resolve(__dirname, 'src/store')
     },
   },
 })

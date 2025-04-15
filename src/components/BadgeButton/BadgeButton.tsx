@@ -2,6 +2,7 @@ import styles from './BadgeButton.module.scss';
 import { ReactNode } from 'react';
 import cn from 'classnames';
 import { IconButton } from 'components/IconButton';
+import { useMediaQuery } from 'react-responsive';
 
 type BadgeButtonProps = {
   icon: ReactNode;
@@ -9,6 +10,8 @@ type BadgeButtonProps = {
   useBorder?: boolean;
   isSelected?: boolean;
   amount?: number;
+  height?: string;
+  width?: string;
 };
 
 export const BadgeButton = ({
@@ -17,23 +20,55 @@ export const BadgeButton = ({
   isSelected,
   amount,
   useBorder = false,
+  height = '64px',
+  width = '64px',
 }: BadgeButtonProps) => {
+  const isTablet = useMediaQuery({ maxWidth: 1199 });
+  const isMobile = useMediaQuery({ maxWidth: 639 });
+
+  const getResponsiveBadgePosition = () => {
+    if (isMobile) {
+      return {
+        width: '16px',
+        height: '16px',
+        right: '100px',
+        top: '10px',
+      };
+    }
+
+    if (isTablet) {
+      return {
+        width: '16px',
+        height: '16px',
+        top: '6px',
+        right: '10px',
+      };
+    }
+
+    return undefined;
+  };
+
   return (
     <div
       className={cn(styles.container, {
         [styles.container__selected]: isSelected,
       })}
     >
-      <IconButton
-        icon={icon}
-        height={'64px'}
-        width={'64px'}
-        useBorder={useBorder}
-        borderColor={'#E2E6E9'}
-        onClick={onClick}
-      />
+      <div className={styles.container__button}>
+        <IconButton
+          icon={icon}
+          height={height}
+          width={width}
+          useBorder={useBorder}
+          borderColor={'#E2E6E9'}
+          onClick={onClick}
+        />
+      </div>
       {!!amount && (
-        <div className={styles.container__badge}>
+        <div
+          className={styles.container__badge}
+          style={getResponsiveBadgePosition()}
+        >
           <span>{amount}</span>
         </div>
       )}

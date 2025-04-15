@@ -1,9 +1,11 @@
 import './App.scss';
 import { Layout } from './layout';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import { ProductsProvider } from 'store/ProductsContext';
 
 export const App = () => (
   <div className="App">
-    <Layout />
+    <ProductsProvider>
+      <Layout />
+    </ProductsProvider>
   </div>
 );
