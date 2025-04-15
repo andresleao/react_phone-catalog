@@ -1,6 +1,6 @@
-import { ProductCard } from '../../../../components/ProductCard';
-import { PageSelector } from '../PageSelector';
 import styles from './ProductsList.module.scss';
+import { ProductCard } from 'components/ProductCard';
+import { PageSelector } from '../PageSelector';
 
 export const ProductsList = () => {
   return (

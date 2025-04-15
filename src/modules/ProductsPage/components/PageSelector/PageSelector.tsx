@@ -1,6 +1,6 @@
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { IconButton } from '../../../../components/IconButton';
 import styles from './PageSelector.module.scss';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { IconButton } from 'components/IconButton';
 
 export const PageSelector = () => {
   return (

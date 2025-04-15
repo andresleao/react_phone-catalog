@@ -1,5 +1,5 @@
-import { CategoryCard } from '../../../../components/CategoryCard';
 import styles from './CategoriesSection.module.scss';
+import { CategoryCard } from 'components/CategoryCard';
 
 export const CategoriesSection = () => {
   return (

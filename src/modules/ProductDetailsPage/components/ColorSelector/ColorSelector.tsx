@@ -1,5 +1,5 @@
-import { useMediaQuery } from 'react-responsive';
 import styles from './ColorSelector.module.scss';
+import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router-dom';
 
 export const ColorSelector = () => {

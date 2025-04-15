@@ -1,5 +1,5 @@
-import { ProductInfoDisplay } from '../../../../components/ProductInfoDisplay';
 import styles from './TechSpecsArea.module.scss';
+import { ProductInfoDisplay } from 'components/ProductInfoDisplay';
 
 export const TechSpecsArea = () => {
   return (

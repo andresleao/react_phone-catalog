@@ -1,7 +1,7 @@
-import { useParams } from 'react-router-dom';
-import { CustomSelectorsArea } from '../CustomSelectorsArea';
 import styles from './CustomFeaturesArea.module.scss';
+import { useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { CustomSelectorsArea } from '../CustomSelectorsArea';
 
 export const CustomFeaturesArea = () => {
   const { id } = useParams();

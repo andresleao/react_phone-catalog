@@ -1,9 +1,9 @@
-import { Navigate, useParams } from 'react-router-dom';
-import { AppSelect } from '../../components/AppSelect';
-import { NavHistory } from '../../components/NavHistory';
-import { ProductsList } from './components/ProdcutsList';
 import styles from './ProductsPage.module.scss';
-import { AppPathRoute } from '../../types/AppPathRoute';
+import { Navigate, useParams } from 'react-router-dom';
+import { AppSelect } from 'components/AppSelect';
+import { NavHistory } from 'components/NavHistory';
+import { AppPathRoute } from 'types/AppPathRoute';
+import { ProductsList } from './components/ProdcutsList';
 
 export const ProductsPage = () => {
   const { type } = useParams();

@@ -1,7 +1,7 @@
-import { IconButton } from '../../../../components/IconButton';
-import { AmountSetup } from '../AmountSetup';
 import styles from './CartItem.module.scss';
 import { FiX } from 'react-icons/fi';
+import { IconButton } from 'components/IconButton';
+import { AmountSetup } from '../AmountSetup';
 
 export const CartItem = () => {
   return (

@@ -1,12 +1,12 @@
-import { FiHeart } from 'react-icons/fi';
-import { IconButton } from '../../../../components/IconButton';
-import { TextButton } from '../../../../components/TextButton';
-import { CapacitySelector } from '../CapacitySelector';
-import { ColorSelector } from '../ColorSelector';
 import styles from './CustomSelectorsArea.module.scss';
-import { ProductInfoDisplay } from '../../../../components/ProductInfoDisplay';
 import { useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
+import { FiHeart } from 'react-icons/fi';
+import { ProductInfoDisplay } from 'components/ProductInfoDisplay';
+import { IconButton } from 'components/IconButton';
+import { TextButton } from 'components/TextButton';
+import { CapacitySelector } from '../CapacitySelector';
+import { ColorSelector } from '../ColorSelector';
 
 export const CustomSelectorsArea = () => {
   const { id } = useParams();

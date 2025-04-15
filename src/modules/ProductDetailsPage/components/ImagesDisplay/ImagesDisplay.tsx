@@ -1,6 +1,6 @@
+import styles from './ImagesDisplay.module.scss';
 import { useMediaQuery } from 'react-responsive';
 import { ImageItem } from '../ImageItem';
-import styles from './ImagesDisplay.module.scss';
 
 export const ImagesDisplay = () => {
   const isMobile = useMediaQuery({ maxWidth: 639 });

@@ -1,5 +1,5 @@
-import { TextButton } from '../../../../components/TextButton';
 import styles from './CheckoutItem.module.scss';
+import { TextButton } from 'components/TextButton';
 
 export const CheckoutItem = () => {
   return (

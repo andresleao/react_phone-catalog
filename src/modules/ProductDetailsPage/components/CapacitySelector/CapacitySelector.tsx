@@ -1,5 +1,5 @@
-import cn from 'classnames';
 import styles from './CapatitySelector.module.scss';
+import cn from 'classnames';
 
 export const CapacitySelector = () => {
   const capacities = ['64 GB', '256 GB', '512 GB'];
