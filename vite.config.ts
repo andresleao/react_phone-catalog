@@ -11,7 +11,9 @@ export default defineConfig({
       layout: path.resolve(__dirname, 'src/layout'),
       modules: path.resolve(__dirname, 'src/modules'),
       types: path.resolve(__dirname, 'src/types'),
-      store: path.resolve(__dirname, 'src/store')
+      store: path.resolve(__dirname, 'src/store'),
+      config: path.resolve(__dirname, 'src/config'),
+      datasources: path.resolve(__dirname, 'src/datasources')
     },
   },
 })

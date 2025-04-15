@@ -4,27 +4,33 @@ import { FiHeart } from 'react-icons/fi';
 import { IconButton } from 'components/IconButton';
 import { TextButton } from 'components/TextButton';
 import { ProductInfoDisplay } from 'components/ProductInfoDisplay';
+import { Product } from 'types/Product';
 
-export const ProductCard = () => {
+type ProductCardProps = {
+  product: Product;
+};
+
+export const ProductCard = ({ product }: ProductCardProps) => {
   const { type } = useParams();
   const navigate = useNavigate();
 
   const handleOnClick = () => {
-    navigate(`/${type}/1`);
+    navigate(`/${type}/${product.id}`);
   };
 
   return (
     <div className={styles.container} onClick={handleOnClick}>
-      <img
-        src={'/img/phones/apple-iphone-xs-max/gold/00.webp'}
-        alt="Product photo"
-      />
-      <span className={styles.container__name}>
-        Apple iPhone Xs 64GB Silver (iMT9G2FS/A)
-      </span>
+      <img src={`/${product.image}`} alt="Product photo" />
+      <span className={styles.container__name}>{product.name}</span>
       <div className={styles.container__price}>
-        <span className={styles.container__price__item}>$799</span>
-        <span className={styles['container__price__item--full']}>$899</span>
+        <span className={styles.container__price__item}>
+          {`$${product.price}`}
+        </span>
+        {product.fullPrice && (
+          <span className={styles['container__price__item--full']}>
+            {`$${product.fullPrice}`}
+          </span>
+        )}
       </div>
       <hr className={styles.container__separator} />
       <ProductInfoDisplay />
