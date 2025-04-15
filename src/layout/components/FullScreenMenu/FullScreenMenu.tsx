@@ -58,16 +58,14 @@ export const FullScreenMenu = () => {
         <div className={styles.container__content__footer}>
           <BadgeButton
             icon={<FiHeart size={24} color={'#313237'} />}
-            useBorder
-            width={'100%'}
             isSelected={isFavouritesPage}
+            width={'100%'}
             onClick={() => navigate('/favourites')}
           />
           <BadgeButton
             icon={<FiShoppingBag size={24} color={'#313237'} />}
             isSelected={isCartPage}
             width={'100%'}
-            useBorder
             onClick={() => navigate('/cart')}
           />
         </div>
