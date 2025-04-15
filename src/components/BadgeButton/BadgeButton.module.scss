@@ -1,19 +1,7 @@
 .container {
   &__selected {
     box-shadow: inset 0 -3px 0 0 #313237;
-    display: inline-block;
     position: relative;
-  }
-
-  &__action {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    cursor: pointer;
-    z-index: 2;
   }
 
   &__badge {

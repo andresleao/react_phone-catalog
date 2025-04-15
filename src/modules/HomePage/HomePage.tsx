@@ -1,7 +1,7 @@
-import { Carousel } from '../../components/Carousel';
-import { CategoriesSection } from './components/CategoriesSection';
-import { CustomSection } from '../../components/CustomSection';
 import styles from './HomePage.module.scss';
+import { Carousel } from 'components/Carousel';
+import { CustomSection } from 'components/CustomSection';
+import { CategoriesSection } from './components/CategoriesSection';
 
 export const HomePage = () => {
   return (

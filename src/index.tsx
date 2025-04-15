@@ -5,6 +5,7 @@ import { HomePage } from './modules/HomePage';
 import { ProductDetailsPage } from './modules/ProductDetailsPage';
 import { ProductsPage } from './modules/ProductsPage';
 import { CartPage } from './modules/CartPage';
+import { FavouritesPage } from './modules/FavouritesPage';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <Router>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
           <Route path=":id" element={<ProductDetailsPage />} />
         </Route>
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/favourites" element={<FavouritesPage />} />
       </Route>
     </Routes>
   </Router>,

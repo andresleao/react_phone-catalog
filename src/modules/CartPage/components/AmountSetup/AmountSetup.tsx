@@ -1,6 +1,6 @@
-import { FiMinus, FiPlus } from 'react-icons/fi';
-import { IconButton } from '../../../../components/IconButton';
 import styles from './AmountSetup.module.scss';
+import { FiMinus, FiPlus } from 'react-icons/fi';
+import { IconButton } from 'components/IconButton';
 
 export const AmountSetup = () => {
   return (

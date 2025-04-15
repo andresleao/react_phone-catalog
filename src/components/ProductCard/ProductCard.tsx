@@ -1,9 +1,9 @@
-import { FiHeart } from 'react-icons/fi';
-import { IconButton } from '../IconButton';
 import styles from './ProductCard.module.scss';
-import { TextButton } from '../TextButton';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ProductInfoDisplay } from '../ProductInfoDisplay';
+import { FiHeart } from 'react-icons/fi';
+import { IconButton } from 'components/IconButton';
+import { TextButton } from 'components/TextButton';
+import { ProductInfoDisplay } from 'components/ProductInfoDisplay';
 
 export const ProductCard = () => {
   const { type } = useParams();

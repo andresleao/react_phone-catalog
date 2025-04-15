@@ -1,9 +1,9 @@
-import { FiChevronLeft } from 'react-icons/fi';
-import { IconTextButton } from '../../components/IconTextButton';
-import { NavHistory } from '../../components/NavHistory';
 import styles from './ProductDetails.module.scss';
+import { FiChevronLeft } from 'react-icons/fi';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CustomSection } from '../../components/CustomSection';
+import { IconTextButton } from 'components/IconTextButton';
+import { NavHistory } from 'components/NavHistory';
+import { CustomSection } from 'components/CustomSection';
 import { ImagesDisplay } from './components/ImagesDisplay';
 import { CustomSelectorsArea } from './components/CustomSelectorsArea';
 import { AboutArea } from './components/AboutArea';

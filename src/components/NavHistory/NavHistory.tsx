@@ -1,12 +1,14 @@
-import { FiChevronRight, FiHome } from 'react-icons/fi';
 import styles from './NavHistory.module.scss';
+import { FiChevronRight, FiHome } from 'react-icons/fi';
 import cn from 'classnames';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
 export const NavHistory = () => {
   const { type, id } = useParams();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   const isMobile = useMediaQuery({ maxWidth: 639 });
 
   return (
@@ -18,7 +20,7 @@ export const NavHistory = () => {
         <FiHome color={'#313237'} />
       </button>
       <FiChevronRight color={'#89939A'} />
-      <span>{type}</span>
+      <span>{type || pathname.slice(1)}</span>
 
       {!!id && (
         <>

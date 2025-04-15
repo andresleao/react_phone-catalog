@@ -1,7 +1,7 @@
-import { IconButton } from '../../../components/IconButton';
-import { Logo } from '../../../components/Logo';
 import styles from './Footer.module.scss';
 import { FiChevronUp } from 'react-icons/fi';
+import { IconButton } from 'components/IconButton';
+import { Logo } from 'components/Logo';
 
 export const Footer = () => (
   <footer className={styles.container}>

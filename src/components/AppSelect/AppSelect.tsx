@@ -1,5 +1,5 @@
-import { FiChevronDown } from 'react-icons/fi';
 import styles from './AppSelect.module.scss';
+import { FiChevronDown } from 'react-icons/fi';
 
 type AppSelectProps = {
   id: string;

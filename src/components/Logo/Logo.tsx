@@ -1,5 +1,5 @@
 import styles from './Logo.module.scss';
-import { LogoIcon } from '../svg';
+import { LogoIcon } from 'components/svg';
 
 export const Logo = () => {
   return (

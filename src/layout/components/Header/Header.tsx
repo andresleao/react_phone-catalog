@@ -1,16 +1,17 @@
 import styles from './Header.module.scss';
-import { Logo } from '../../../components/Logo';
-import { FiHeart, FiMenu, FiShoppingBag } from 'react-icons/fi';
-import { IconButton } from '../../../components/IconButton';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { BadgeButton } from '../../../components/BadgeButton';
 import { useLocation } from 'react-router-dom';
+import { FiHeart, FiMenu, FiShoppingBag } from 'react-icons/fi';
+import { Logo } from 'components/Logo';
+import { IconButton } from 'components/IconButton';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { BadgeButton } from 'components/BadgeButton';
 
 export const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const isCartPage = location.pathname === '/cart';
+  const isFavouritesPage = location.pathname === '/favourites';
 
   const links = [
     { label: 'HOME', path: '/' },
@@ -18,10 +19,6 @@ export const Header = () => {
     { label: 'TABLETS', path: '/tablets' },
     { label: 'ACCESSORIES', path: '/accessories' },
   ];
-
-  const handleNavToCartPage = () => {
-    navigate('/cart');
-  };
 
   return (
     <header className={styles.container}>
@@ -47,13 +44,14 @@ export const Header = () => {
           <BadgeButton
             icon={<FiHeart size={24} />}
             useBorder
-            onClick={() => {}}
+            isSelected={isFavouritesPage}
+            onClick={() => navigate('/favourites')}
           />
           <BadgeButton
             icon={<FiShoppingBag size={24} />}
             isSelected={isCartPage}
             amount={3}
-            onClick={handleNavToCartPage}
+            onClick={() => navigate('/cart')}
           />
         </div>
 

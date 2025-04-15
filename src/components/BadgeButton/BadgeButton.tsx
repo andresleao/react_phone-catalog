@@ -1,7 +1,7 @@
-import { IconButton } from '../IconButton';
 import styles from './BadgeButton.module.scss';
-import cn from 'classnames';
 import { ReactNode } from 'react';
+import cn from 'classnames';
+import { IconButton } from 'components/IconButton';
 
 type BadgeButtonProps = {
   icon: ReactNode;
@@ -23,7 +23,6 @@ export const BadgeButton = ({
       className={cn(styles.container, {
         [styles.container__selected]: isSelected,
       })}
-      onClick={onClick}
     >
       <IconButton
         icon={icon}
@@ -31,10 +30,8 @@ export const BadgeButton = ({
         width={'64px'}
         useBorder={useBorder}
         borderColor={'#E2E6E9'}
+        onClick={onClick}
       />
-      {!!onClick && (
-        <div className={styles.container__action} onClick={onClick} />
-      )}
       {!!amount && (
         <div className={styles.container__badge}>
           <span>{amount}</span>

@@ -1,6 +1,6 @@
-import { FiChevronLeft } from 'react-icons/fi';
-import { IconTextButton } from '../../components/IconTextButton';
 import styles from './CartPage.module.scss';
+import { FiChevronLeft } from 'react-icons/fi';
+import { IconTextButton } from 'components/IconTextButton';
 import { CartItem } from './components/CartItem';
 import { CheckoutItem } from './components/CheckoutItem';
 
