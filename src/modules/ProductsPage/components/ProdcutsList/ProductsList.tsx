@@ -1,16 +1,13 @@
 import styles from './ProductsList.module.scss';
 import { ProductCard } from 'components/ProductCard';
 import { PageSelector } from '../PageSelector';
-import { useContext } from 'react';
-import { ProductsContext } from 'store/ProductsContext';
+import { Product } from 'types/Product';
 
-export const ProductsList = () => {
-  const { products } = useContext(ProductsContext);
+type ProductsListProps = {
+  products: Product[];
+};
 
-  if (!products) {
-    return;
-  }
-
+export const ProductsList = ({ products }: ProductsListProps) => {
   return (
     <>
       <div className={styles.container}>

@@ -2,12 +2,14 @@ import styles from './CustomSection.module.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { IconButton } from 'components/IconButton';
 import { ProductCard } from 'components/ProductCard';
+import { Product } from 'types/Product';
 
 type CustomSectionProps = {
   title: string;
+  products: Product[];
 };
 
-export const CustomSection = ({ title }: CustomSectionProps) => {
+export const CustomSection = ({ title, products }: CustomSectionProps) => {
   return (
     <section className={styles.container}>
       <div className={styles.container__header}>
@@ -30,8 +32,8 @@ export const CustomSection = ({ title }: CustomSectionProps) => {
       </div>
 
       <div className={styles.container__list}>
-        {[...Array(4)].map((_, index) => (
-          <ProductCard key={index} />
+        {products.map(product => (
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </section>

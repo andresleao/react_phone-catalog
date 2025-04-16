@@ -20,7 +20,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <div className={styles.container} onClick={handleOnClick}>
-      <img src={`/${product.image}`} alt="Product photo" />
+      {product.image && <img src={`/${product.image}`} alt="Product photo" />}
       <span className={styles.container__name}>{product.name}</span>
       <div className={styles.container__price}>
         <span className={styles.container__price__item}>

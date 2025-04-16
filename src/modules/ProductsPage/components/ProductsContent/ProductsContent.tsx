@@ -13,8 +13,38 @@ import { AppSpinner } from 'components/AppSpinner';
 
 export const ProductsContent = () => {
   const { type } = useParams();
-  const { setProducts } = useContext(ProductsContext);
+
+  const { setProducts, setFilteredProducts, filteredProducts, products } =
+    useContext(ProductsContext);
+
   const [isLoading, setIsLoading] = useState(false);
+
+  const [sortByFilter, setSortByFilter] = useState('Newest');
+  const sortByOptions = ['Newest', 'Alphabetically', 'Cheapest'];
+
+  const itemsOnPage = ['4', '8', '16', 'all'];
+
+  const handleSortChange = (value: string) => {
+    setSortByFilter(value);
+
+    const sortedProducts = [...filteredProducts];
+
+    switch (value) {
+      case 'Newest':
+        sortedProducts.sort((a, b) => b.year - a.year);
+        break;
+      case 'Alphabetically':
+        sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'Cheapest':
+        sortedProducts.sort((a, b) => a.price - b.price);
+        break;
+      default:
+        break;
+    }
+
+    setFilteredProducts(sortedProducts);
+  };
 
   const handleGetProducts = useCallback(async () => {
     setIsLoading(true);
@@ -23,12 +53,13 @@ export const ProductsContent = () => {
       const data = await getProducts();
 
       setProducts(data);
+      setFilteredProducts([...data]);
     } catch (error) {
       console.error('Fetch error:', error);
     } finally {
       setIsLoading(false);
     }
-  }, [setProducts]);
+  }, [setProducts, setFilteredProducts]);
 
   useEffect(() => {
     handleGetProducts();
@@ -47,12 +78,15 @@ export const ProductsContent = () => {
     }
   };
 
-  const sortBy = ['Newest', 'Alphabetically', 'Cheapest'];
-  const itemsOnPage = ['4', '8', '16', 'all'];
-
   if (isLoading) {
     return <AppSpinner fullScreen={true} />;
   }
+
+  if (!isLoading && (filteredProducts.length === 0 || !products)) {
+    return <p>An error ocurred</p>;
+  }
+
+  const list = filteredProducts.filter(p => p.category === type);
 
   return (
     <div className={styles.container}>
@@ -65,13 +99,17 @@ export const ProductsContent = () => {
             id={'sortBy'}
             label={'Sort by'}
             width={'176px'}
-            options={sortBy}
+            value={sortByFilter}
+            options={sortByOptions}
+            onChange={e => handleSortChange(e.target.value)}
           />
           <AppSelect
             id={'itemsOnPage'}
             label={'Items on page'}
             width={'88px'}
             options={itemsOnPage}
+            value={''}
+            onChange={() => {}}
           />
         </div>
         <div className={styles.container__content__info}>
@@ -79,10 +117,10 @@ export const ProductsContent = () => {
             {getPagesTitle()}
           </span>
           <span className={styles.container__content__list_lenght}>
-            95 models
+            {`${list.length} models`}
           </span>
         </div>
-        <ProductsList />
+        <ProductsList products={list} />
       </div>
     </div>
   );
