@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { useEffect, useContext, useState, useCallback } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { ProductsContext } from 'store/ProductsContext';
@@ -63,7 +65,7 @@ export const ProductsContent = () => {
       setProducts(data);
       setFilteredProducts([...data]);
     } catch (error) {
-      // console.error('Fetch error:', error);
+      console.error('Fetch error:', error);
     } finally {
       setIsLoading(false);
     }
