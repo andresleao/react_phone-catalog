@@ -8,8 +8,12 @@ import { ImagesDisplay } from './components/ImagesDisplay';
 import { CustomSelectorsArea } from './components/CustomSelectorsArea';
 import { AboutArea } from './components/AboutArea';
 import { TechSpecsArea } from './components/TechSpecsArea';
+import { useContext } from 'react';
+import { ProductsContext } from 'store/ProductsContext';
 
 export const ProductDetailsPage = () => {
+  const { products } = useContext(ProductsContext);
+
   const navigate = useNavigate();
   const { type } = useParams();
 
@@ -37,9 +41,14 @@ export const ProductDetailsPage = () => {
         <TechSpecsArea />
       </div>
 
-      <div className={styles.container__list}>
-        <CustomSection title={'You may also like'} />
-      </div>
+      {!!products && (
+        <div className={styles.container__list}>
+          <CustomSection
+            title={'You may also like'}
+            products={products.slice(0, 4)}
+          />
+        </div>
+      )}
     </div>
   );
 };

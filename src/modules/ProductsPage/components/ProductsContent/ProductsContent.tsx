@@ -1,25 +1,21 @@
-/* eslint-disable no-console */
-
-import styles from './ProductsContent.module.scss';
-import { useParams } from 'react-router-dom';
-import { AppSelect } from 'components/AppSelect';
-import { NavHistory } from 'components/NavHistory';
-import { AppPathRoute } from 'types/AppPathRoute';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useEffect, useContext, useState, useCallback } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { ProductsContext } from 'store/ProductsContext';
 import { getProducts } from 'datasources/productsDatasource';
-import { ProductsList } from '../ProdcutsList';
+import { AppSelect } from 'components/AppSelect';
+import { NavHistory } from 'components/NavHistory';
 import { AppSpinner } from 'components/AppSpinner';
 import { SortByFilter } from 'types/SortByFilter';
+import styles from './ProductsContent.module.scss';
+import { ProductsList } from '../ProdcutsList';
 
 export const ProductsContent = () => {
   const { type } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { setProducts, setFilteredProducts, filteredProducts, products } =
     useContext(ProductsContext);
-
   const [isLoading, setIsLoading] = useState(false);
-
   const [sortByFilter, setSortByFilter] = useState('Newest');
   const [pageItems, setPageItems] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,14 +57,13 @@ export const ProductsContent = () => {
 
   const handleGetProducts = useCallback(async () => {
     setIsLoading(true);
-
     try {
       const data = await getProducts();
 
       setProducts(data);
       setFilteredProducts([...data]);
     } catch (error) {
-      console.error('Fetch error:', error);
+      // console.error('Fetch error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -79,41 +74,79 @@ export const ProductsContent = () => {
   }, [handleGetProducts]);
 
   useEffect(() => {
-    if (!products) {
-      return;
+    const sort = searchParams.get('sort');
+    const page = searchParams.get('page');
+    const perPage = searchParams.get('perPage');
+
+    const sortFilterMap: Record<string, string> = {
+      Newest: 'age',
+      Alphabetically: 'title',
+      Cheapest: 'price',
+    };
+
+    if (sort && Object.values(sortFilterMap).includes(sort)) {
+      setSortByFilter(
+        Object.keys(sortFilterMap).find(key => sortFilterMap[key] === sort) ||
+          'Newest',
+      );
     }
 
-    let result = [...products];
-
-    if (type) {
-      result = result.filter(p => p.category === type);
+    if (perPage) {
+      setPageItems(perPage);
     }
 
-    switch (sortByFilter) {
-      case 'Newest':
-        result.sort((a, b) => b.year - a.year);
-        break;
-      case 'Alphabetically':
-        result.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'Cheapest':
-        result.sort((a, b) => a.price - b.price);
-        break;
-      default:
-        break;
+    if (page) {
+      setCurrentPage(Number(page));
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    const sortFilterMap: Record<string, string> = {
+      Newest: 'age',
+      Alphabetically: 'title',
+      Cheapest: 'price',
+    };
+
+    const params: Record<string, string> = {};
+
+    if (currentPage !== 1) {
+      params.page = currentPage.toString();
     }
 
-    setFilteredProducts(result);
-    setCurrentPage(1);
-  }, [products, type, sortByFilter, setFilteredProducts]);
+    if (sortByFilter !== 'Newest') {
+      params.sort = sortFilterMap[sortByFilter];
+    } else {
+      params.sort = 'age';
+    }
+
+    if (pageItems !== 'all') {
+      params.perPage = pageItems;
+    }
+
+    const finalParams = new URLSearchParams();
+
+    if (params.sort) {
+      finalParams.append('sort', params.sort);
+    }
+
+    if (params.page) {
+      finalParams.append('page', params.page);
+    }
+
+    if (params.perPage) {
+      finalParams.append('perPage', params.perPage);
+    }
+
+    setSearchParams(finalParams);
+  }, [sortByFilter, pageItems, currentPage, setSearchParams, searchParams]);
 
   const getPagesTitle = () => {
     switch (type) {
-      case AppPathRoute.Phones:
+      case 'phones':
         return 'Mobile phones';
-      case AppPathRoute.Tablets:
+      case 'tablets':
         return 'Tablets';
-      case AppPathRoute.Accessories:
+      case 'accessories':
         return 'Accessories';
       default:
         return '';
@@ -133,7 +166,7 @@ export const ProductsContent = () => {
   }
 
   if (!isLoading && (filteredProducts.length === 0 || !products)) {
-    return <p>An error ocurred</p>;
+    return <p>An error occurred</p>;
   }
 
   return (
