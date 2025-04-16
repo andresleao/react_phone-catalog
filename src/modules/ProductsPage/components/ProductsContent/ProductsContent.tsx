@@ -12,11 +12,11 @@ import styles from './ProductsContent.module.scss';
 import { ProductsList } from '../ProdcutsList';
 
 export const ProductsContent = () => {
-  const { type } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const { setProducts, setFilteredProducts, filteredProducts, products } =
     useContext(ProductsContext);
+
+  const { type } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [sortByFilter, setSortByFilter] = useState('Newest');
   const [pageItems, setPageItems] = useState('all');
@@ -52,7 +52,7 @@ export const ProductsContent = () => {
     setFilteredProducts(sortedProducts);
   };
 
-  const handlePageItemsChange = (value: string) => {
+  const handleItemsPerPageChange = (value: string) => {
     setPageItems(value);
     setCurrentPage(1);
   };
@@ -192,7 +192,7 @@ export const ProductsContent = () => {
             width={'88px'}
             options={pageItemsOptions}
             value={pageItems}
-            onChange={e => handlePageItemsChange(e.target.value)}
+            onChange={e => handleItemsPerPageChange(e.target.value)}
           />
         </div>
         <div className={styles.container__content__info}>
