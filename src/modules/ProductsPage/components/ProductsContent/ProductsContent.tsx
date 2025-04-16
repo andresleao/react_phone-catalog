@@ -10,6 +10,7 @@ import { ProductsContext } from 'store/ProductsContext';
 import { getProducts } from 'datasources/productsDatasource';
 import { ProductsList } from '../ProdcutsList';
 import { AppSpinner } from 'components/AppSpinner';
+import { SortByFilter } from 'types/SortByFilter';
 
 export const ProductsContent = () => {
   const { type } = useParams();
@@ -20,9 +21,16 @@ export const ProductsContent = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [sortByFilter, setSortByFilter] = useState('Newest');
-  const sortByOptions = ['Newest', 'Alphabetically', 'Cheapest'];
+  const [pageItems, setPageItems] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const itemsOnPage = ['4', '8', '16', 'all'];
+  const sortByOptions: SortByFilter[] = [
+    'Newest',
+    'Alphabetically',
+    'Cheapest',
+  ];
+
+  const pageItemsOptions = ['4', '8', '16', 'all'];
 
   const handleSortChange = (value: string) => {
     setSortByFilter(value);
@@ -46,6 +54,11 @@ export const ProductsContent = () => {
     setFilteredProducts(sortedProducts);
   };
 
+  const handlePageItemsChange = (value: string) => {
+    setPageItems(value);
+    setCurrentPage(1);
+  };
+
   const handleGetProducts = useCallback(async () => {
     setIsLoading(true);
 
@@ -65,6 +78,35 @@ export const ProductsContent = () => {
     handleGetProducts();
   }, [handleGetProducts]);
 
+  useEffect(() => {
+    if (!products) {
+      return;
+    }
+
+    let result = [...products];
+
+    if (type) {
+      result = result.filter(p => p.category === type);
+    }
+
+    switch (sortByFilter) {
+      case 'Newest':
+        result.sort((a, b) => b.year - a.year);
+        break;
+      case 'Alphabetically':
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'Cheapest':
+        result.sort((a, b) => a.price - b.price);
+        break;
+      default:
+        break;
+    }
+
+    setFilteredProducts(result);
+    setCurrentPage(1);
+  }, [products, type, sortByFilter, setFilteredProducts]);
+
   const getPagesTitle = () => {
     switch (type) {
       case AppPathRoute.Phones:
@@ -78,6 +120,14 @@ export const ProductsContent = () => {
     }
   };
 
+  const getPerPageValue = () => {
+    if (pageItems === 'all') {
+      return filteredProducts.length;
+    }
+
+    return parseInt(pageItems, 10);
+  };
+
   if (isLoading) {
     return <AppSpinner fullScreen={true} />;
   }
@@ -85,8 +135,6 @@ export const ProductsContent = () => {
   if (!isLoading && (filteredProducts.length === 0 || !products)) {
     return <p>An error ocurred</p>;
   }
-
-  const list = filteredProducts.filter(p => p.category === type);
 
   return (
     <div className={styles.container}>
@@ -107,9 +155,9 @@ export const ProductsContent = () => {
             id={'itemsOnPage'}
             label={'Items on page'}
             width={'88px'}
-            options={itemsOnPage}
-            value={''}
-            onChange={() => {}}
+            options={pageItemsOptions}
+            value={pageItems}
+            onChange={e => handlePageItemsChange(e.target.value)}
           />
         </div>
         <div className={styles.container__content__info}>
@@ -117,10 +165,15 @@ export const ProductsContent = () => {
             {getPagesTitle()}
           </span>
           <span className={styles.container__content__list_lenght}>
-            {`${list.length} models`}
+            {`${filteredProducts.length} models`}
           </span>
         </div>
-        <ProductsList products={list} />
+        <ProductsList
+          products={filteredProducts}
+          perPage={getPerPageValue()}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );
