@@ -32,6 +32,7 @@
     "@types/react-transition-group": "^4.4.10",
     "@typescript-eslint/parser": "^7.16.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
     "cypress": "^13.13.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
@@ -53,7 +54,9 @@
     "vite": "^5.3.1"
   },
   "scripts": {
-    "start": "mate-scripts start -l",
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "node server.js",
+    "start:client": "mate-scripts start -l",
     "build": "mate-scripts build",
     "test": "mate-scripts test -l",
     "style-format": "npx stylelint 'src/**/*.scss' --fix --allow-empty-input",
