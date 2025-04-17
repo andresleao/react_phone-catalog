@@ -13,7 +13,8 @@ export default defineConfig({
       types: path.resolve(__dirname, 'src/types'),
       store: path.resolve(__dirname, 'src/store'),
       config: path.resolve(__dirname, 'src/config'),
-      datasources: path.resolve(__dirname, 'src/datasources')
+      datasources: path.resolve(__dirname, 'src/datasources'),
+      utils: path.resolve(__dirname, 'src/utils')
     },
   },
 })

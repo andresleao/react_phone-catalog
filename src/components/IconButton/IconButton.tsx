@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 type IconButtonProps = {
   icon: ReactNode;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   useBorder?: boolean;
   borderColor?: string;
   height?: string;

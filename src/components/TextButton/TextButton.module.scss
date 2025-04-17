@@ -4,6 +4,7 @@
   justify-content: center;
   cursor: pointer;
   flex: 1;
+  transition: all 0.2s ease;
 
   button {
     all: unset;
@@ -13,5 +14,15 @@
     color: #FFF;
     font-size: 0.88rem;
     font-weight: 700;
+  }
+
+  &:hover {
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+
+    span {
+      color: #313237;
+    }
   }
 }

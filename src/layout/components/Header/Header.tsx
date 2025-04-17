@@ -7,7 +7,8 @@ import { IconButton } from 'components/IconButton';
 import { BadgeButton } from 'components/BadgeButton';
 import { useMediaQuery } from 'react-responsive';
 import { ProductsContext } from 'store/ProductsContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { getFavorites } from 'utils/appLocalStorage';
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -18,7 +19,8 @@ export const Header = () => {
   const isCartPage = location.pathname === '/cart';
   const isFavouritesPage = location.pathname === '/favourites';
 
-  const { setToggleMenu } = useContext(ProductsContext);
+  const { setToggleMenu, favouriteAmount, setFavouriteAmount } =
+    useContext(ProductsContext);
 
   const handleToggleMenu = () => {
     setToggleMenu(prev => !prev);
@@ -30,6 +32,12 @@ export const Header = () => {
     { label: 'TABLETS', path: '/tablets' },
     { label: 'ACCESSORIES', path: '/accessories' },
   ];
+
+  useEffect(() => {
+    const favouritesLenght = getFavorites().length;
+
+    setFavouriteAmount(favouritesLenght);
+  }, [setFavouriteAmount]);
 
   return (
     <header className={styles.container}>
@@ -55,6 +63,7 @@ export const Header = () => {
           <BadgeButton
             icon={<FiHeart size={isTablet ? 16 : 24} />}
             useBorder
+            amount={favouriteAmount}
             isSelected={isFavouritesPage}
             height={isTablet ? '48px' : '64px'}
             width={isTablet ? '48px' : '64px'}
@@ -63,7 +72,7 @@ export const Header = () => {
           <BadgeButton
             icon={<FiShoppingBag size={isTablet ? 16 : 24} />}
             isSelected={isCartPage}
-            amount={3}
+            // amount={favouriteAmount}
             onClick={() => navigate('/cart')}
             height={isTablet ? '48px' : '64px'}
             width={isTablet ? '48px' : '64px'}

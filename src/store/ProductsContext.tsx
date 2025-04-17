@@ -8,6 +8,8 @@ type ProductsContextType = {
   setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
   toggleMenu: boolean;
   setToggleMenu: React.Dispatch<React.SetStateAction<boolean>>;
+  favouriteAmount: number;
+  setFavouriteAmount: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const ProductsContext = React.createContext<ProductsContextType>({
@@ -17,6 +19,8 @@ export const ProductsContext = React.createContext<ProductsContextType>({
   setFilteredProducts: () => {},
   toggleMenu: false,
   setToggleMenu: () => {},
+  favouriteAmount: 0,
+  setFavouriteAmount: () => {},
 });
 
 type Props = {
@@ -27,6 +31,7 @@ export const ProductsProvider: React.FC<Props> = ({ children }) => {
   const [products, setProducts] = useState<Product[] | null>(null);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [favouriteAmount, setFavouriteAmount] = useState(0);
 
   const value = useMemo(
     () => ({
@@ -36,8 +41,10 @@ export const ProductsProvider: React.FC<Props> = ({ children }) => {
       setFilteredProducts,
       toggleMenu,
       setToggleMenu,
+      favouriteAmount,
+      setFavouriteAmount,
     }),
-    [products, filteredProducts, toggleMenu],
+    [products, filteredProducts, toggleMenu, favouriteAmount],
   );
 
   // prettier-ignore

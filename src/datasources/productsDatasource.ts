@@ -55,3 +55,32 @@ export async function getProductDetails(id: string): Promise<Product> {
     throw new Error(`Failed to load product: ${errorMessage}`);
   }
 }
+
+export async function getFavouritesProducts(ids: string[]): Promise<Product[]> {
+  try {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const response = await fetch(`${API_BASE_URL}/products.json`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const products: Product[] = await response.json();
+    const favourites = products.filter(product => ids.includes(product.id));
+
+    if (!products && !favourites) {
+      throw new Error(`Favourites list not found`);
+    }
+
+    return favourites;
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : 'Unknown error occurred while fetching favourites list';
+
+    console.error('Error in getFavouritesProducts:', error);
+    throw new Error(`Failed to load favourites: ${errorMessage}`);
+  }
+}
