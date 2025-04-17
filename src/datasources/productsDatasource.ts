@@ -38,7 +38,7 @@ export async function getProductDetails(id: string): Promise<Product> {
     }
 
     const products: Product[] = await response.json();
-    const product = products.find(p => p.id === id);
+    const product = products.find(p => p.id === Number(id));
 
     if (!product) {
       throw new Error(`Product with id "${id}" not found`);
@@ -67,7 +67,10 @@ export async function getFavouritesProducts(ids: string[]): Promise<Product[]> {
     }
 
     const products: Product[] = await response.json();
-    const favourites = products.filter(product => ids.includes(product.id));
+
+    const favourites = products.filter(product =>
+      ids.includes(product.id.toString()),
+    );
 
     if (!products && !favourites) {
       throw new Error(`Favourites list not found`);

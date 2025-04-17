@@ -7,15 +7,28 @@ import { IconButton } from 'components/IconButton';
 import { TextButton } from 'components/TextButton';
 import { CapacitySelector } from '../CapacitySelector';
 import { ColorSelector } from '../ColorSelector';
+import { Product } from 'types/Product';
+import { ColorName } from 'types/ProductColors';
 
-export const CustomSelectorsArea = () => {
+type CustomSelectorsAreaProps = {
+  product: Product;
+  availableColors: ColorName[];
+};
+
+export const CustomSelectorsArea = ({
+  product,
+  availableColors,
+}: CustomSelectorsAreaProps) => {
   const { id } = useParams();
   const isTablet = useMediaQuery({ maxWidth: 1199 });
 
   return (
     <div className={styles.container}>
       <div className={styles.container__content}>
-        <ColorSelector />
+        <ColorSelector
+          productName={product.name}
+          colorsAvailable={availableColors}
+        />
         <hr />
         <CapacitySelector />
         <hr />

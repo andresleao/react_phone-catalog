@@ -8,6 +8,7 @@ import { getFavouritesProducts } from 'datasources/productsDatasource';
 import { useEffect, useState } from 'react';
 import { Product } from 'types/Product';
 import { getFavorites } from 'utils/appLocalStorage';
+import { EmptyContent } from 'components/EmptyContent';
 
 export const FavouritesPage = () => {
   const [favourites, setFavourites] = useState<Product[] | null>([]);
@@ -39,11 +40,13 @@ export const FavouritesPage = () => {
   }
 
   if (!isLoading && !favourites) {
-    <p>Error fetching favourites list</p>;
+    return <p>Error fetching favourites list</p>;
   }
 
   if (!isLoading && favourites?.length === 0) {
-    <p>Empty favourites list</p>;
+    return (
+      <EmptyContent title={'You do not have favourites products yet...'} />
+    );
   }
 
   return (

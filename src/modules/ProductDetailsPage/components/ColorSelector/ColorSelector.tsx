@@ -1,8 +1,17 @@
 import styles from './ColorSelector.module.scss';
 import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router-dom';
+import { COLOR_MAP, ColorName } from 'types/ProductColors';
 
-export const ColorSelector = () => {
+type ColorSelectorProps = {
+  productName: string;
+  colorsAvailable: ColorName[];
+};
+
+export const ColorSelector = ({
+  productName,
+  colorsAvailable,
+}: ColorSelectorProps) => {
   const { id } = useParams();
   const isTablet = useMediaQuery({ maxWidth: 1199 });
 
@@ -15,30 +24,20 @@ export const ColorSelector = () => {
         )}
       </div>
       <div className={styles.container__content}>
-        <div className={styles.container__content__wrapper}>
-          <div
-            className={styles.container__content__wrapper__item}
-            style={{ backgroundColor: '#FCDBC1' }}
-          />
-        </div>
-        <div className={styles.container__content__wrapper}>
-          <div
-            className={styles.container__content__wrapper__item}
-            style={{ backgroundColor: '#5F7170' }}
-          />
-        </div>
-        <div className={styles.container__content__wrapper}>
-          <div
-            className={styles.container__content__wrapper__item}
-            style={{ backgroundColor: '#4C4C4C' }}
-          />
-        </div>
-        <div className={styles.container__content__wrapper}>
-          <div
-            className={styles.container__content__wrapper__item}
-            style={{ backgroundColor: '#F0F0F0' }}
-          />
-        </div>
+        {colorsAvailable.map(color => (
+          <div key={color} className={styles.container__content__wrapper}>
+            <div
+              className={styles.container__content__wrapper__item}
+              style={{
+                backgroundColor: COLOR_MAP[color],
+                border: productName.endsWith(color)
+                  ? '2px solid #313237'
+                  : 'none',
+              }}
+              title={color.charAt(0).toUpperCase() + color.slice(1)}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -1,9 +1,13 @@
 import styles from './ImageItem.module.scss';
 
-export const ImageItem = () => {
+type ImageItemProps = {
+  imageUrl: string;
+};
+
+export const ImageItem = ({ imageUrl }: ImageItemProps) => {
   return (
     <div className={styles.container}>
-      <img src={'/img/category-phones.png'} />
+      <img src={imageUrl} />
     </div>
   );
 };

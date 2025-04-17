@@ -4,7 +4,11 @@ import cn from 'classnames';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
-export const NavHistory = () => {
+type NavHistoryProps = {
+  productName?: string;
+};
+
+export const NavHistory = ({ productName }: NavHistoryProps) => {
   const { type, id } = useParams();
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -22,7 +26,7 @@ export const NavHistory = () => {
       <FiChevronRight color={'#89939A'} />
       <span>{type || pathname.slice(1)}</span>
 
-      {!!id && (
+      {!!id && productName && (
         <>
           <FiChevronRight color={'#89939A'} />
           <span
@@ -31,7 +35,7 @@ export const NavHistory = () => {
               [styles.container__truncate]: isMobile,
             })}
           >
-            Apple iPhone 11 Pro Max 64GB Gold (iMT9G2FS/A)
+            {productName}
           </span>
         </>
       )}
