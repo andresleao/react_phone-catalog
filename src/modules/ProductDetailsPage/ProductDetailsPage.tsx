@@ -39,14 +39,18 @@ export const ProductDetailsPage = () => {
       .replace(/[^a-z0-9-]/g, '');
   }
 
-  function findMatchingModel(name: string, modelsList: string[]) {
-    const normalizedName = normalizeName(name);
-    const sortedModels = [...modelsList].sort((a, b) => b.length - a.length);
+  const findMatchingModel = useCallback(
+    (name: string, modelsList: string[]) => {
+      const normalizedName = normalizeName(name);
 
-    return sortedModels.find(model =>
-      normalizedName.includes(model.toLowerCase()),
-    );
-  }
+      const sortedModels = [...modelsList].sort((a, b) => b.length - a.length);
+
+      return sortedModels.find(model =>
+        normalizedName.includes(normalizeName(model)),
+      );
+    },
+    [],
+  );
 
   const fetchModels = useCallback(async () => {
     try {
@@ -158,7 +162,7 @@ export const ProductDetailsPage = () => {
         console.error('Erro ao buscar imagens:', error);
       }
     },
-    [type, API_URL, models],
+    [type, API_URL, models, findMatchingModel],
   );
 
   useEffect(() => {
