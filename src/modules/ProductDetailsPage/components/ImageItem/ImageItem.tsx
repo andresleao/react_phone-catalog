@@ -1,4 +1,5 @@
 import styles from './ImageItem.module.scss';
+import cn from 'classnames';
 
 type ImageItemProps = {
   imageUrl: string;
@@ -13,7 +14,7 @@ export const ImageItem = ({
 }: ImageItemProps) => {
   return (
     <div
-      className={`${styles.container} ${isSelected ? styles.selected : ''}`}
+      className={cn(styles.container, { [styles.selected]: isSelected })}
       onClick={setSelectedImage}
     >
       <img src={imageUrl} alt="image-item" />

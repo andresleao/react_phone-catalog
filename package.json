@@ -3,6 +3,7 @@
   "homepage": "https://andresleao.github.io/react_phone-catalog/",
   "version": "0.1.0",
   "keywords": [],
+  "type": "commonjs",
   "author": "Mate Academy",
   "license": "GPL-3.0",
   "dependencies": {

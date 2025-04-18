@@ -11,6 +11,7 @@
   aspect-ratio: 1;
   padding-bottom: 7px;
   cursor: pointer;
+  transition: all 0.2s ease;
 
   img {
     max-width: 90%;
@@ -19,8 +20,13 @@
     transform: translateY(6%);
   }
 
-  .selected {
-    border: 2px solid #0070f3;
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+  }
+
+  &.selected {
+    border: 2px solid #313237;
   }
 
   @include tablet {
