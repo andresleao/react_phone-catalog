@@ -108,8 +108,6 @@ export const ProductDetailsPage = () => {
       const colorText =
         `${parts[parts.length - 2]}-${parts[parts.length - 1]}`.toLowerCase();
 
-      console.log(colorText);
-
       if (Object.keys(COLOR_MAP).includes(colorText.replace('-', ''))) {
         color = colorText.replace('-', '');
       }
@@ -209,11 +207,7 @@ export const ProductDetailsPage = () => {
       <span className={styles.container__title}>{product?.name}</span>
 
       <div className={styles.container__grid}>
-        <ImagesDisplay
-          imageUrl={product!.image}
-          productName={product!.name}
-          images={imageList}
-        />
+        <ImagesDisplay images={imageList} />
         <CustomSelectorsArea
           product={product!}
           availableColors={availableColors}
