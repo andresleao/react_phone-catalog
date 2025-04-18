@@ -63,13 +63,16 @@ export const ProductsContent = () => {
       const data = await getProducts();
 
       setProducts(data);
-      setFilteredProducts([...data]);
+
+      const dataByType = data.filter(product => product.category === type);
+
+      setFilteredProducts([...dataByType]);
     } catch (error) {
       console.error('Fetch error:', error);
     } finally {
       setIsLoading(false);
     }
-  }, [setProducts, setFilteredProducts]);
+  }, [setProducts, setFilteredProducts, type]);
 
   useEffect(() => {
     handleGetProducts();

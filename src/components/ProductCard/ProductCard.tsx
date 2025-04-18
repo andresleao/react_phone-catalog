@@ -30,11 +30,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   ) => {
     event.stopPropagation();
 
-    if (isFavorite(product.id)) {
-      removeFavorite(product.id);
+    if (isFavorite(product.id.toString())) {
+      removeFavorite(product.id.toString());
       setFavouriteAmount(prev => prev - 1);
     } else {
-      addFavorite(product.id);
+      addFavorite(product.id.toString());
       setFavouriteAmount(prev => prev + 1);
     }
 
@@ -42,7 +42,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   useEffect(() => {
-    if (isFavorite(product.id)) {
+    if (isFavorite(product.id.toString())) {
       setIsFavoriteChecked(true);
     }
   }, [product.id]);
