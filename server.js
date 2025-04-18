@@ -33,7 +33,7 @@ const listarDiretorios = caminho => {
       fs.statSync(path.join(caminho, arquivo)).isDirectory()
     );
   } catch (err) {
-    console.error('Erro ao listar diretórios:', err);
+    console.error('Error listing directories:', err);
     return [];
   }
 };
@@ -46,8 +46,8 @@ app.get('/api/product-model/:type', (req, res) => {
     const directories = fs.readdirSync(modelPath).filter(file => fs.statSync(path.join(modelPath, file)).isDirectory());
     res.json(directories);
   } catch (err) {
-    console.error('Erro ao listar diretórios:', err);
-    res.status(500).json({ error: 'Erro ao listar diretórios' });
+    console.error('Error listing directories:', err);
+    res.status(500).json({ error: 'Error listing directories' });
   }
 });
 
@@ -61,8 +61,8 @@ app.get('/api/product-images/:type/:model/:color', (req, res) => {
     );
     res.json(files);
   } catch (err) {
-    console.error('Erro ao listar arquivos:', err);
-    res.status(500).json({ error: 'Erro ao listar arquivos' });
+    console.error('Error listing files:', err);
+    res.status(500).json({ error: 'Error listing files:' });
   }
 });
 
@@ -74,11 +74,11 @@ app.get('/api/product-colors/:type/:productName', (req, res) => {
     const directories = fs.readdirSync(productPath).filter(file => fs.statSync(path.join(productPath, file)).isDirectory());
     res.json(directories);
   } catch (err) {
-    console.error('Erro ao listar diretórios:', err);
-    res.status(500).json({ error: 'Erro ao listar diretórios' });
+    console.error('Error listing directories:', err);
+    res.status(500).json({ error: 'Error listing directories:' });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

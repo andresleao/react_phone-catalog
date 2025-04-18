@@ -33,10 +33,10 @@ export const ProductDetailsPage = () => {
   function normalizeName(name: string) {
     return name
       .toLowerCase()
-      .replace(/[()]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/[^a-z0-9-]/g, '');
+      .replace(/[()]/g, '') // remove parênteses
+      .replace(/[^a-z0-9\-]/g, '-') // substitui tudo que não é letra, número ou hífen por hífen
+      .replace(/-+/g, '-') // evita múltiplos hífens seguidos
+      .replace(/^-|-$/g, ''); // remove hífen do começo ou fim
   }
 
   const findMatchingModel = useCallback(
@@ -57,7 +57,7 @@ export const ProductDetailsPage = () => {
       const response = await fetch(`${API_URL}/api/product-model/${type}`);
 
       if (!response.ok) {
-        throw new Error('Erro na requisição');
+        throw new Error('Request error');
       }
 
       const data: string[] = await response.json();
@@ -65,7 +65,7 @@ export const ProductDetailsPage = () => {
 
       setModels(modelsName);
     } catch (error) {
-      console.error('Erro ao buscar modelos:', error);
+      console.error('Error fetching brands', error);
     }
   }, [API_URL, type]);
 
@@ -73,32 +73,16 @@ export const ProductDetailsPage = () => {
     async (productName: string) => {
       try {
         const parts = productName.split(' ');
-        let productKey = '';
 
-        switch (type) {
-          case 'phones':
-            productKey = `${parts[0]}-${parts[1]}-${parts[2]}`.toLowerCase();
-            break;
-          case 'tablets':
-            productKey =
-              `${parts[0]}-${parts[1]}-${parts[2]}-${parts[3]}-${parts[4]}`
-                .toLowerCase()
-                .replace(/[()]/g, '');
-            break;
-          case 'accessories':
-            productKey =
-              `${parts[0]}-${parts[1]}-${parts[2]}-${parts[3]}`.toLowerCase();
-            break;
-          default:
-            productKey = '';
-        }
+        const name = parts.slice(0, 6).join('-').toLowerCase();
+        const model = findMatchingModel(name, models);
 
         const response = await fetch(
-          `${API_URL}/api/product-colors/${type}/${productKey}`,
+          `${API_URL}/api/product-colors/${type}/${model}`,
         );
 
         if (!response.ok) {
-          throw new Error(`Erro HTTP ${response.status}`);
+          throw new Error(`HTTP Error ${response.status}`);
         }
 
         const directories = await response.json();
@@ -109,11 +93,11 @@ export const ProductDetailsPage = () => {
 
         setAvailableColors(validColors.length ? validColors : []);
       } catch (error) {
-        console.error('Erro ao buscar cores:', error);
+        console.error('Error fetching colors:', error);
         setAvailableColors([]);
       }
     },
-    [API_URL, type],
+    [API_URL, type, findMatchingModel, models],
   );
 
   const fetchImages = useCallback(
@@ -124,12 +108,22 @@ export const ProductDetailsPage = () => {
       const colorText =
         `${parts[parts.length - 2]}-${parts[parts.length - 1]}`.toLowerCase();
 
+      console.log(colorText);
+
+      if (Object.keys(COLOR_MAP).includes(colorText.replace('-', ''))) {
+        color = colorText.replace('-', '');
+      }
+
       if (Object.keys(COLOR_MAP).includes(colorText)) {
         color = colorText;
       }
 
       if (color === 'gray') {
         color = 'spacegray';
+      }
+
+      if (type === 'accessories' && color === 'spacegray') {
+        color = 'space-gray';
       }
 
       const name = parts.slice(0, 6).join('-').toLowerCase();
@@ -147,7 +141,7 @@ export const ProductDetailsPage = () => {
         if (!response.ok) {
           const errorText = await response.text();
 
-          throw new Error(`Erro HTTP ${response.status}: ${errorText}`);
+          throw new Error(`HTTP Error ${response.status}: ${errorText}`);
         }
 
         const data: string[] = await response.json();
@@ -159,7 +153,7 @@ export const ProductDetailsPage = () => {
 
         setImageList(images);
       } catch (error) {
-        console.error('Erro ao buscar imagens:', error);
+        console.error('Error searching for images:', error);
       }
     },
     [type, API_URL, models, findMatchingModel],
@@ -184,7 +178,7 @@ export const ProductDetailsPage = () => {
         await fetchColors(data.name);
         await fetchImages(data.name);
       } catch (error) {
-        console.error('Erro ao carregar detalhes do produto:', error);
+        console.error('Error loading product details:', error);
       } finally {
         setIsLoading(false);
       }
