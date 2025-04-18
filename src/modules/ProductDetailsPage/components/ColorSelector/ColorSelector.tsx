@@ -1,18 +1,17 @@
 import styles from './ColorSelector.module.scss';
 import { useMediaQuery } from 'react-responsive';
-import { useParams } from 'react-router-dom';
 import { COLOR_MAP, ColorName } from 'types/ProductColors';
+import { ProductDetails } from 'types/ProductDetailsPage';
 
 type ColorSelectorProps = {
-  productName: string;
+  product: ProductDetails;
   colorsAvailable: ColorName[];
 };
 
 export const ColorSelector = ({
-  productName,
+  product,
   colorsAvailable,
 }: ColorSelectorProps) => {
-  const { id } = useParams();
   const isTablet = useMediaQuery({ maxWidth: 1199 });
 
   return (
@@ -20,7 +19,9 @@ export const ColorSelector = ({
       <div className={styles.container__label}>
         <span className={styles.container__label__info}>Available colors</span>
         {isTablet && (
-          <span className={styles.container__label__id}>{`ID: ${id}`}</span>
+          <span
+            className={styles.container__label__id}
+          >{`ID: ${product.id}`}</span>
         )}
       </div>
       <div className={styles.container__content}>
@@ -30,7 +31,7 @@ export const ColorSelector = ({
               className={styles.container__content__wrapper__item}
               style={{
                 backgroundColor: COLOR_MAP[color],
-                border: productName.endsWith(color)
+                border: product.name.endsWith(color)
                   ? '2px solid #313237'
                   : 'none',
               }}

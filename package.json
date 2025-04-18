@@ -3,7 +3,6 @@
   "homepage": "https://andresleao.github.io/react_phone-catalog/",
   "version": "0.1.0",
   "keywords": [],
-  "type": "commonjs",
   "author": "Mate Academy",
   "license": "GPL-3.0",
   "dependencies": {
@@ -55,8 +54,7 @@
     "vite": "^5.3.1"
   },
   "scripts": {
-    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
-    "start:server": "node server.js",
+    "start": "mate-scripts start -l",
     "start:client": "mate-scripts start -l",
     "build": "mate-scripts build",
     "test": "mate-scripts test -l",

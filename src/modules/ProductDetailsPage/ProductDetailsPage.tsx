@@ -10,171 +10,41 @@ import { ImagesDisplay } from './components/ImagesDisplay';
 import { CustomSelectorsArea } from './components/CustomSelectorsArea';
 import { AboutArea } from './components/AboutArea';
 import { TechSpecsArea } from './components/TechSpecsArea';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ProductsContext } from 'store/ProductsContext';
-import { getProductDetails } from 'datasources/productsDatasource';
-import { Product } from 'types/Product';
+import { Category, getProductDetails } from 'datasources/productsDatasource';
 import { AppSpinner } from 'components/AppSpinner';
 import { COLOR_MAP, ColorName } from 'types/ProductColors';
+import { ProductDetails } from 'types/ProductDetailsPage';
 
 export const ProductDetailsPage = () => {
   const { type, id } = useParams();
   const { products } = useContext(ProductsContext);
 
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<ProductDetails | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [models, setModels] = useState<string[]>([]);
   const [availableColors, setAvailableColors] = useState<ColorName[]>([]);
-  const [imageList, setImageList] = useState<{ id: string; src: string }[]>([]);
+  const [imageList, setImageList] = useState<string[]>([]);
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
   const navigate = useNavigate();
-
-  function normalizeName(name: string) {
-    return name
-      .toLowerCase()
-      .replace(/[()]/g, '') // remove parênteses
-      .replace(/[^a-z0-9\-]/g, '-') // substitui tudo que não é letra, número ou hífen por hífen
-      .replace(/-+/g, '-') // evita múltiplos hífens seguidos
-      .replace(/^-|-$/g, ''); // remove hífen do começo ou fim
-  }
-
-  const findMatchingModel = useCallback(
-    (name: string, modelsList: string[]) => {
-      const normalizedName = normalizeName(name);
-
-      const sortedModels = [...modelsList].sort((a, b) => b.length - a.length);
-
-      return sortedModels.find(model =>
-        normalizedName.includes(normalizeName(model)),
-      );
-    },
-    [],
-  );
-
-  const fetchModels = useCallback(async () => {
-    try {
-      const response = await fetch(`${API_URL}/api/product-model/${type}`);
-
-      if (!response.ok) {
-        throw new Error('Request error');
-      }
-
-      const data: string[] = await response.json();
-      const modelsName = data.map(m => m.toLocaleLowerCase());
-
-      setModels(modelsName);
-    } catch (error) {
-      console.error('Error fetching brands', error);
-    }
-  }, [API_URL, type]);
-
-  const fetchColors = useCallback(
-    async (productName: string) => {
-      try {
-        const parts = productName.split(' ');
-
-        const name = parts.slice(0, 6).join('-').toLowerCase();
-        const model = findMatchingModel(name, models);
-
-        const response = await fetch(
-          `${API_URL}/api/product-colors/${type}/${model}`,
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP Error ${response.status}`);
-        }
-
-        const directories = await response.json();
-
-        const validColors = directories
-          .map((dir: string) => dir.toLowerCase())
-          .filter((dir: string): dir is ColorName => dir in COLOR_MAP);
-
-        setAvailableColors(validColors.length ? validColors : []);
-      } catch (error) {
-        console.error('Error fetching colors:', error);
-        setAvailableColors([]);
-      }
-    },
-    [API_URL, type, findMatchingModel, models],
-  );
-
-  const fetchImages = useCallback(
-    async (productName: string) => {
-      const parts = productName.split(' ');
-      let color = parts[parts.length - 1].toLowerCase();
-
-      const colorText =
-        `${parts[parts.length - 2]}-${parts[parts.length - 1]}`.toLowerCase();
-
-      if (Object.keys(COLOR_MAP).includes(colorText.replace('-', ''))) {
-        color = colorText.replace('-', '');
-      }
-
-      if (Object.keys(COLOR_MAP).includes(colorText)) {
-        color = colorText;
-      }
-
-      if (color === 'gray') {
-        color = 'spacegray';
-      }
-
-      if (type === 'accessories' && color === 'spacegray') {
-        color = 'space-gray';
-      }
-
-      const name = parts.slice(0, 6).join('-').toLowerCase();
-      const model = findMatchingModel(name, models);
-
-      if (!model) {
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `${API_URL}/api/product-images/${type}/${model}/${color}`,
-        );
-
-        if (!response.ok) {
-          const errorText = await response.text();
-
-          throw new Error(`HTTP Error ${response.status}: ${errorText}`);
-        }
-
-        const data: string[] = await response.json();
-
-        const images = data.map((fileName: string) => ({
-          id: fileName.split('.')[0],
-          src: `/img/${type}/${model.toLowerCase()}/${color}/${fileName}`,
-        }));
-
-        setImageList(images);
-      } catch (error) {
-        console.error('Error searching for images:', error);
-      }
-    },
-    [type, API_URL, models, findMatchingModel],
-  );
-
-  useEffect(() => {
-    fetchModels();
-  }, [fetchModels]);
 
   useEffect(() => {
     const loadData = async () => {
-      if (!id || models.length === 0) {
+      if (!id) {
         return;
       }
 
-      setIsLoading(true);
       try {
-        const data = await getProductDetails(id);
+        setIsLoading(true);
+        const data = await getProductDetails(id, type as Category);
+
+        const validColors = data.colorsAvailable
+          .map((color: string) => color.toLowerCase())
+          .filter((color: string): color is ColorName => color in COLOR_MAP);
 
         setProduct(data);
-
-        await fetchColors(data.name);
-        await fetchImages(data.name);
+        setImageList(data.images);
+        setAvailableColors(validColors);
       } catch (error) {
         console.error('Error loading product details:', error);
       } finally {
@@ -183,7 +53,7 @@ export const ProductDetailsPage = () => {
     };
 
     loadData();
-  }, [id, models, fetchColors, fetchImages]);
+  }, [id, type]);
 
   if (isLoading) {
     return <AppSpinner />;

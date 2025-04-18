@@ -4,18 +4,15 @@ import { ImageItem } from '../ImageItem';
 import { useState } from 'react';
 
 type ImagesDisplayProps = {
-  images: { id: string; src: string }[];
+  images: string[];
 };
 
 export const ImagesDisplay = ({ images }: ImagesDisplayProps) => {
-  const [selectedImage, setSelectedImage] = useState<{
-    id: string;
-    src: string;
-  }>(images[0]);
+  const [selectedImage, setSelectedImage] = useState<string>(images[0]);
 
   const isMobile = useMediaQuery({ maxWidth: 639 });
 
-  const handleSetSelectedImage = (image: { id: string; src: string }) => {
+  const handleSetSelectedImage = (image: string) => {
     setSelectedImage(image);
   };
 
@@ -24,10 +21,10 @@ export const ImagesDisplay = ({ images }: ImagesDisplayProps) => {
       {!isMobile && (
         <ul className={styles.container__list}>
           {images.map(i => (
-            <li key={i.id} className={styles.item}>
+            <li key={i} className={styles.item}>
               <ImageItem
-                imageUrl={i.src}
-                isSelected={selectedImage.id === i.id}
+                imageUrl={i}
+                isSelected={selectedImage === i}
                 setSelectedImage={() => handleSetSelectedImage(i)}
               />
             </li>
@@ -35,15 +32,15 @@ export const ImagesDisplay = ({ images }: ImagesDisplayProps) => {
         </ul>
       )}
       <div className={styles.container__main}>
-        <img src={`${selectedImage.src}`} />
+        <img src={`/${selectedImage}`} />
       </div>
       {isMobile && (
         <ul className={styles.container__list}>
           {images.map(i => (
-            <li key={i.id} className={styles.item}>
+            <li key={i} className={styles.item}>
               <ImageItem
-                imageUrl={i.src}
-                isSelected={selectedImage.id === i.id}
+                imageUrl={i}
+                isSelected={selectedImage === i}
                 setSelectedImage={() => handleSetSelectedImage(i)}
               />
             </li>

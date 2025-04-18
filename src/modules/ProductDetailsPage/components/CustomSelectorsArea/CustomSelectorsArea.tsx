@@ -1,5 +1,4 @@
 import styles from './CustomSelectorsArea.module.scss';
-import { useParams } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import { FiHeart } from 'react-icons/fi';
 import { ProductInfoDisplay } from 'components/ProductInfoDisplay';
@@ -7,11 +6,11 @@ import { IconButton } from 'components/IconButton';
 import { TextButton } from 'components/TextButton';
 import { CapacitySelector } from '../CapacitySelector';
 import { ColorSelector } from '../ColorSelector';
-import { Product } from 'types/Product';
 import { ColorName } from 'types/ProductColors';
+import { ProductDetails } from 'types/ProductDetailsPage';
 
 type CustomSelectorsAreaProps = {
-  product: Product;
+  product: ProductDetails;
   availableColors: ColorName[];
 };
 
@@ -19,24 +18,26 @@ export const CustomSelectorsArea = ({
   product,
   availableColors,
 }: CustomSelectorsAreaProps) => {
-  const { id } = useParams();
   const isTablet = useMediaQuery({ maxWidth: 1199 });
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get('id');
 
   return (
     <div className={styles.container}>
       <div className={styles.container__content}>
-        <ColorSelector
-          productName={product.name}
-          colorsAvailable={availableColors}
-        />
+        <ColorSelector product={product} colorsAvailable={availableColors} />
         <hr />
         <CapacitySelector />
         <hr />
         <div className={styles.container__content__prices}>
           <span className={styles.container__content__prices__current}>
-            $799
+            {`$${product.priceDiscount}`}
           </span>
-          <span className={styles.container__content__prices__full}>$1199</span>
+          <span className={styles.container__content__prices__full}>
+            {`$${product.priceRegular}`}
+          </span>
         </div>
         <div className={styles.container__content__buttons}>
           <TextButton title={'Add to cart'} height={'48px'} />

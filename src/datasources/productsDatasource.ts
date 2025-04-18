@@ -2,6 +2,9 @@
 
 import { API_BASE_URL } from 'config/config';
 import { Product } from 'types/Product';
+import { ProductDetails } from 'types/ProductDetailsPage';
+
+export type Category = 'phones' | 'tablets' | 'accessories';
 
 export async function getProducts(): Promise<Product[]> {
   try {
@@ -27,24 +30,41 @@ export async function getProducts(): Promise<Product[]> {
   }
 }
 
-export async function getProductDetails(id: string): Promise<Product> {
+export async function getProductDetails(
+  id: string,
+  category: Category,
+): Promise<ProductDetails> {
   try {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    const response = await fetch(`${API_BASE_URL}/products.json`);
+    let response;
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    switch (category) {
+      case 'phones':
+        response = await fetch(`${API_BASE_URL}/phones.json`);
+        break;
+      case 'tablets':
+        response = await fetch(`${API_BASE_URL}/tablets.json`);
+        break;
+      case 'accessories':
+        response = await fetch(`${API_BASE_URL}/accessories.json`);
+        break;
+      default:
+        break;
     }
 
-    const products: Product[] = await response.json();
-    const product = products.find(p => p.id === Number(id));
+    if (!response?.ok) {
+      throw new Error(`HTTP error! status: ${response?.status}`);
+    }
 
-    if (!product) {
+    const products: ProductDetails[] = await response.json();
+    const productDetails = products.find(product => product.id === id);
+
+    if (!productDetails) {
       throw new Error(`Product with id "${id}" not found`);
     }
 
-    return product;
+    return productDetails;
   } catch (error) {
     const errorMessage =
       error instanceof Error
