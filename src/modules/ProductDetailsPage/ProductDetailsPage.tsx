@@ -12,7 +12,11 @@ import { AboutArea } from './components/AboutArea';
 import { TechSpecsArea } from './components/TechSpecsArea';
 import { useContext, useEffect, useState } from 'react';
 import { ProductsContext } from 'store/ProductsContext';
-import { Category, getProductDetails } from 'datasources/productsDatasource';
+import {
+  Category,
+  getProductDetails,
+  getProducts,
+} from 'datasources/productsDatasource';
 import { AppSpinner } from 'components/AppSpinner';
 import { COLOR_MAP, ColorName } from 'types/ProductColors';
 import { ProductDetails } from 'types/ProductDetailsPage';
@@ -37,10 +41,23 @@ export const ProductDetailsPage = () => {
       try {
         setIsLoading(true);
         const data = await getProductDetails(id, type as Category);
+        const productsList = await getProducts();
 
         const validColors = data.colorsAvailable
           .map((color: string) => color.toLowerCase())
           .filter((color: string): color is ColorName => color in COLOR_MAP);
+
+        const productFound = productsList.find(p => p.itemId === data.id);
+
+        if (productFound) {
+          const searchParams = new URLSearchParams(location.search);
+
+          searchParams.set('id', productFound.id.toString());
+
+          navigate(`${location.pathname}?${searchParams.toString()}`, {
+            replace: true,
+          });
+        }
 
         setProduct(data);
         setImageList(data.images);

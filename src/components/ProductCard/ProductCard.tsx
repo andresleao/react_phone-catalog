@@ -22,7 +22,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const [isFavoriteChecked, setIsFavoriteChecked] = useState(false);
 
   const handleOnClick = () => {
-    navigate(`/${type}/${product.itemId}?id=${product.id}`);
+    navigate(`/${type}/${product.itemId}`);
   };
 
   const handleFavouritesOnClickButton = (
