@@ -70,7 +70,7 @@ export const ProductDetailsPage = () => {
     };
 
     loadData();
-  }, [id, type]);
+  }, [id, type, navigate]);
 
   if (isLoading) {
     return <AppSpinner />;
