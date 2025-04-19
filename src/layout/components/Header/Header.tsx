@@ -1,23 +1,19 @@
 import styles from './Header.module.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import { FiHeart, FiMenu, FiShoppingBag } from 'react-icons/fi';
 import { Logo } from 'components/Logo';
 import { IconButton } from 'components/IconButton';
 import { BadgeButton } from 'components/BadgeButton';
-import { useMediaQuery } from 'react-responsive';
 import { ProductsContext } from 'store/ProductsContext';
 import { useContext, useEffect } from 'react';
 import { getFavorites } from 'utils/appLocalStorage';
+import useCheckMediaQuery from 'hooks/useCheckMediaQuery';
+import useCheckUrl from 'hooks/useCheckUrl';
 
 export const Header = () => {
+  const { isTablet } = useCheckMediaQuery();
+  const { isCartPage, isFavouritesPage } = useCheckUrl();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const isTablet = useMediaQuery({ maxWidth: 1199 });
-
-  const isCartPage = location.pathname === '/cart';
-  const isFavouritesPage = location.pathname === '/favourites';
 
   const { setToggleMenu, favouriteAmount, setFavouriteAmount } =
     useContext(ProductsContext);

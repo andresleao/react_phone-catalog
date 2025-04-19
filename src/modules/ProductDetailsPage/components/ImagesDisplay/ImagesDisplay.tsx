@@ -1,8 +1,8 @@
 import styles from './ImagesDisplay.module.scss';
-import { useMediaQuery } from 'react-responsive';
 import { ImageItem } from '../ImageItem';
 import { useContext, useState } from 'react';
 import { ProductDetailsContext } from 'store/ProductDetailsContext';
+import useCheckMediaQuery from 'hooks/useCheckMediaQuery';
 
 export const ImagesDisplay = () => {
   const { product } = useContext(ProductDetailsContext);
@@ -11,7 +11,7 @@ export const ImagesDisplay = () => {
     product ? product.images[0] : '',
   );
 
-  const isMobile = useMediaQuery({ maxWidth: 639 });
+  const { isMobile } = useCheckMediaQuery();
 
   const handleSetSelectedImage = (image: string) => {
     setSelectedImage(image);
@@ -40,7 +40,7 @@ export const ImagesDisplay = () => {
         <img src={`/${selectedImage}`} />
       </div>
       {isMobile && (
-        <ul className={styles.container__list}>
+        <ul className={styles.container__row}>
           {product.images.map(i => (
             <li key={i} className={styles.item}>
               <ImageItem

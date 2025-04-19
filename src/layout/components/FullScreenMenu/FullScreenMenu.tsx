@@ -1,18 +1,16 @@
 import { Logo } from 'components/Logo';
 import styles from './FullScreenMenu.module.scss';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { IconButton } from 'components/IconButton';
 import { FiHeart, FiShoppingBag, FiX } from 'react-icons/fi';
 import { BadgeButton } from 'components/BadgeButton';
 import { useContext } from 'react';
 import { ProductsContext } from 'store/ProductsContext';
+import useCheckUrl from 'hooks/useCheckUrl';
 
 export const FullScreenMenu = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const isCartPage = location.pathname === '/cart';
-  const isFavouritesPage = location.pathname === '/favourites';
+  const { isCartPage, isFavouritesPage } = useCheckUrl();
 
   const { setToggleMenu } = useContext(ProductsContext);
 

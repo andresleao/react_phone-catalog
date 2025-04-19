@@ -1,17 +1,16 @@
 import { useContext } from 'react';
 import styles from './ColorSelector.module.scss';
 import cn from 'classnames';
-import { useMediaQuery } from 'react-responsive';
 import { useNavigate, useParams } from 'react-router-dom';
 import { COLOR_MAP } from 'types/ProductColors';
 import { ProductDetailsContext } from 'store/ProductDetailsContext';
+import useCheckMediaQuery from 'hooks/useCheckMediaQuery';
+import useIdParams from 'hooks/useIdParams';
 
 export const ColorSelector = () => {
-  const isTablet = useMediaQuery({ maxWidth: 1199 });
+  const { isTablet } = useCheckMediaQuery();
   const { type } = useParams();
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
+  const { id } = useIdParams();
   const navigate = useNavigate();
 
   const { product } = useContext(ProductDetailsContext);

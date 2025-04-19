@@ -1,5 +1,4 @@
 import styles from './CustomSelectorsArea.module.scss';
-import { useMediaQuery } from 'react-responsive';
 import { FiHeart } from 'react-icons/fi';
 import { IconButton } from 'components/IconButton';
 import { TextButton } from 'components/TextButton';
@@ -11,15 +10,14 @@ import { ProductDetailsInfoDisplay } from '../ProductDetailsInfoDisplay';
 import { addFavorite, isFavorite, removeFavorite } from 'utils/appLocalStorage';
 import { FaHeart } from 'react-icons/fa';
 import { ProductsContext } from 'store/ProductsContext';
+import useCheckMediaQuery from 'hooks/useCheckMediaQuery';
+import useIdParams from 'hooks/useIdParams';
 
 export const CustomSelectorsArea = () => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const id = urlParams.get('id');
-
-  const isTablet = useMediaQuery({ maxWidth: 1199 });
-
+  const { id } = useIdParams();
+  const { isTablet } = useCheckMediaQuery();
   const { product } = useContext(ProductDetailsContext);
+
   const { setFavouriteAmount } = useContext(ProductsContext);
 
   const [isFavoriteChecked, setIsFavoriteChecked] = useState(

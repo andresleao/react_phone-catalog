@@ -2,10 +2,10 @@ import styles from './Carousel.module.scss';
 import cn from 'classnames';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { IconButton } from 'components/IconButton';
-import { useMediaQuery } from 'react-responsive';
+import useCheckMediaQuery from 'hooks/useCheckMediaQuery';
 
 export const Carousel = () => {
-  const isMobile = useMediaQuery({ maxWidth: 639 });
+  const { isMobile } = useCheckMediaQuery();
 
   return (
     <div className={styles.container}>

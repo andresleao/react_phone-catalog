@@ -14,7 +14,8 @@ export default defineConfig({
       store: path.resolve(__dirname, 'src/store'),
       config: path.resolve(__dirname, 'src/config'),
       datasources: path.resolve(__dirname, 'src/datasources'),
-      utils: path.resolve(__dirname, 'src/utils')
+      utils: path.resolve(__dirname, 'src/utils'),
+      hooks: path.resolve(__dirname, 'src/hooks')
     },
   },
 })

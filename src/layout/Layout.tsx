@@ -5,11 +5,11 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { FullScreenMenu } from './components/FullScreenMenu/FullScreenMenu';
 import { ProductsContext } from 'store/ProductsContext';
-import { useMediaQuery } from 'react-responsive';
+import useCheckMediaQuery from 'hooks/useCheckMediaQuery';
 
 export const Layout = () => {
   const { toggleMenu } = useContext(ProductsContext);
-  const isMobile = useMediaQuery({ maxWidth: 639 });
+  const { isMobile } = useCheckMediaQuery();
 
   return (
     <>
