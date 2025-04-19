@@ -15,7 +15,7 @@ export interface ProductDetails {
   colorsAvailable: string[];
   color: string;
   images: string[];
-  descripton: ProductDescription[];
+  description: ProductDescription[];
   screen?: string;
   resolution?: string;
   processor?: string;

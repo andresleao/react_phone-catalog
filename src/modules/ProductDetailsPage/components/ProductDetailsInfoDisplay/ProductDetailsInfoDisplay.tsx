@@ -2,12 +2,24 @@ import styles from './ProductDetailsInfoDisplay.module.scss';
 import { useContext } from 'react';
 import { ProductDetailsContext } from 'store/ProductDetailsContext';
 
-export const ProductDetailsInfoDisplay = () => {
+type ProductDetailsInfoDisplayProps = {
+  showCompleteDisplay?: boolean;
+};
+
+export const ProductDetailsInfoDisplay = ({
+  showCompleteDisplay = false,
+}: ProductDetailsInfoDisplayProps) => {
   const { product } = useContext(ProductDetailsContext);
 
   if (!product) {
     return;
   }
+
+  const formatText = (content: string[]) => {
+    const text = content.join(', ');
+
+    return text;
+  };
 
   return (
     <div className={styles.container}>
@@ -40,6 +52,34 @@ export const ProductDetailsInfoDisplay = () => {
           <span className={styles.container__info__title}>RAM</span>
           <span className={styles.container__info__value}>{product.ram}</span>
         </div>
+      )}
+      {showCompleteDisplay && (
+        <>
+          {product.camera && (
+            <div className={styles.container__info}>
+              <span className={styles.container__info__title}>Camera</span>
+              <span className={styles.container__info__value}>
+                {product.camera}
+              </span>
+            </div>
+          )}
+          {product.zoom && (
+            <div className={styles.container__info}>
+              <span className={styles.container__info__title}>Zoom</span>
+              <span className={styles.container__info__value}>
+                {product.zoom}
+              </span>
+            </div>
+          )}
+          {product.cell && (
+            <div className={styles.container__info}>
+              <span className={styles.container__info__title}>Cell</span>
+              <span className={styles.container__info__value}>
+                {formatText(product.cell)}
+              </span>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
