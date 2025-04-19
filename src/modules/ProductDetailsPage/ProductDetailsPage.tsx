@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 import styles from './ProductDetails.module.scss';
 import { FiChevronLeft } from 'react-icons/fi';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -12,23 +11,19 @@ import { AboutArea } from './components/AboutArea';
 import { TechSpecsArea } from './components/TechSpecsArea';
 import { useContext, useEffect, useState } from 'react';
 import { ProductsContext } from 'store/ProductsContext';
+import { AppSpinner } from 'components/AppSpinner';
+import { ProductDetailsContext } from 'store/ProductDetailsContext';
 import {
   Category,
   getProductDetails,
   getProducts,
 } from 'datasources/productsDatasource';
-import { AppSpinner } from 'components/AppSpinner';
-import { COLOR_MAP, ColorName } from 'types/ProductColors';
-import { ProductDetails } from 'types/ProductDetailsPage';
 
 export const ProductDetailsPage = () => {
   const { type, id } = useParams();
   const { products } = useContext(ProductsContext);
-
-  const [product, setProduct] = useState<ProductDetails | null>(null);
+  const { product, setProduct } = useContext(ProductDetailsContext);
   const [isLoading, setIsLoading] = useState(false);
-  const [availableColors, setAvailableColors] = useState<ColorName[]>([]);
-  const [imageList, setImageList] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
@@ -43,10 +38,6 @@ export const ProductDetailsPage = () => {
         const data = await getProductDetails(id, type as Category);
         const productsList = await getProducts();
 
-        const validColors = data.colorsAvailable
-          .map((color: string) => color.toLowerCase())
-          .filter((color: string): color is ColorName => color in COLOR_MAP);
-
         const productFound = productsList.find(p => p.itemId === data.id);
 
         if (productFound) {
@@ -60,8 +51,6 @@ export const ProductDetailsPage = () => {
         }
 
         setProduct(data);
-        setImageList(data.images);
-        setAvailableColors(validColors);
       } catch (error) {
         console.error('Error loading product details:', error);
       } finally {
@@ -70,7 +59,7 @@ export const ProductDetailsPage = () => {
     };
 
     loadData();
-  }, [id, type, navigate]);
+  }, [id, type, navigate, setProduct]);
 
   if (isLoading) {
     return <AppSpinner />;
@@ -94,11 +83,8 @@ export const ProductDetailsPage = () => {
       <span className={styles.container__title}>{product?.name}</span>
 
       <div className={styles.container__grid}>
-        <ImagesDisplay images={imageList} />
-        <CustomSelectorsArea
-          product={product!}
-          availableColors={availableColors}
-        />
+        <ImagesDisplay />
+        <CustomSelectorsArea />
       </div>
 
       <div className={styles.container__grid__info}>

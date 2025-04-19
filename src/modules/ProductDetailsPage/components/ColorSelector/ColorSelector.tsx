@@ -1,18 +1,12 @@
+import { useContext } from 'react';
 import styles from './ColorSelector.module.scss';
+import cn from 'classnames';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate, useParams } from 'react-router-dom';
-import { COLOR_MAP, ColorName } from 'types/ProductColors';
-import { ProductDetails } from 'types/ProductDetailsPage';
+import { COLOR_MAP } from 'types/ProductColors';
+import { ProductDetailsContext } from 'store/ProductDetailsContext';
 
-type ColorSelectorProps = {
-  product: ProductDetails;
-  colorsAvailable: ColorName[];
-};
-
-export const ColorSelector = ({
-  product,
-  colorsAvailable,
-}: ColorSelectorProps) => {
+export const ColorSelector = () => {
   const isTablet = useMediaQuery({ maxWidth: 1199 });
   const { type } = useParams();
   const queryString = window.location.search;
@@ -20,11 +14,21 @@ export const ColorSelector = ({
   const id = urlParams.get('id');
   const navigate = useNavigate();
 
+  const { product } = useContext(ProductDetailsContext);
+
   const handleColorSelector = (color: string) => {
+    if (!product) {
+      return;
+    }
+
     const productUrl = `${product.namespaceId}-${product.capacity.toLocaleLowerCase()}-${color}`;
 
     navigate(`/${type}/${productUrl}`);
   };
+
+  if (!product) {
+    return;
+  }
 
   return (
     <div className={styles.container}>
@@ -35,10 +39,12 @@ export const ColorSelector = ({
         )}
       </div>
       <div className={styles.container__content}>
-        {colorsAvailable.map(color => (
+        {product.colorsAvailable.map(color => (
           <div
             key={color}
-            className={styles.container__content__wrapper}
+            className={cn(styles.container__content__wrapper, {
+              [styles.active]: color === product.color,
+            })}
             onClick={() => handleColorSelector(color)}
           >
             <div
