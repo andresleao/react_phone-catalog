@@ -1,1 +1,0 @@
-export { ProductsContent } from './ProductsContent';

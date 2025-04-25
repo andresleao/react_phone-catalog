@@ -1,1 +1,0 @@
-export { AboutArea } from './AboutArea';

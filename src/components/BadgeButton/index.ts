@@ -1,1 +1,0 @@
-export { BadgeButton } from './BadgeButton';
